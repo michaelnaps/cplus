@@ -129,7 +129,7 @@ private:
       }
    }
    void calc_distance_total() {
-      if (velocity_final >= EPSILON && velocity_initial >= EPSILON && time >= EPSILON) {
+	   if (velocity_final >= EPSILON && velocity_initial >= EPSILON && time >= EPSILON) {
          distance_total = (((velocity_final + velocity_initial) / 2) * time);
          distance_final = distance_total - distance_initial;
       }
@@ -143,13 +143,13 @@ private:
       }
    }
    void calc_distance_initial() {
-      if (distance_final >= EPSILON) {
+      if ((distance_initial - (distance_final - distance_total)) >= EPSILON) {
          this->calc_distance_total();
          distance_initial = distance_total - distance_final;
       }
    }
    void calc_distance_final() {
-      if (distance_initial >= EPSILON) {
+      if ((distance_final - (distance_total + distance_initial)) >= EPSILON) {
          this->calc_distance_total();
          distance_final = distance_total - distance_initial;
       }
@@ -184,10 +184,10 @@ public:
    }
    void setTime (double temp_time) { time = temp_time; }
    void setAcceleration (double temp_acc) { acceleration = temp_acc; }
-
-   // CHECK IF CALCULATION OF VELOCITY IS FUNCTIONING CORRECTLY
+	
+	// 'get' MEMBER FUNCTIONS OF KINEMATICS CLASS
    double getVelInitial() { 
-      this->calc_velocity_initial();
+      this->calc_velocity_initial();			// CHECK IF CALCULATION OF VELOCITY IS FUNCTIONING CORRECTLY
       return velocity_initial;
    }
    double getVelFinal() { 
@@ -195,21 +195,21 @@ public:
       return velocity_final;
    }
    double getDist() {
-      if (distance_total != (distance_final - distance_initial)) {
+      if ((distance_total - (distance_final - distance_initial)) >= EPSILON) {
          this->calc_distance_total();
          return distance_total;
       }
       else { return distance_total; }
    }
    double getDistInitial() {
-      if (distance_initial != (distance_final - distance_total)) {
+      if ((distance_initial - (distance_final - distance_total)) >= EPSILON) {
          this->calc_distance_initial();
          return distance_initial;
       }
       else { return distance_initial; }
    }
    double getDistFinal() { 
-      if (distance_final != (distance_total + distance_initial)) {
+      if ((distance_final - (distance_total + distance_initial)) >= EPSILON) {
          this->calc_distance_final();
          return distance_final;
       }      
@@ -218,6 +218,10 @@ public:
    double getTime() { return time; }
    double getAcceleration() { return acceleration; }
    double getGravityAcceleration() { return acc_gravity; }
+	
+	void getCommands() {
+		
+	}
 };
 
 int main() 
