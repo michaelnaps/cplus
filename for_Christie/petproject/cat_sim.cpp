@@ -11,12 +11,70 @@
 */
 
 #include <iostream>
-#include <ostream>
+#include <fstream>
 #include "Feline.h"
 #include "Feed.h"
 using namespace std;
 
+// FUNCTION INITIALIZATIONS
+// 'save()' FUNCTION
+bool save(Feline& save_cat);
+
+// 'load()' FUNCTION
+bool load(Feline& load_cat);
+
 int main()
 {
+	Feline cat;
+	
+	load(cat);
+	
+	if (cat.getName().length() == 0) { cat.nameYourCat(); }
+	
+	cout << cat.getName() << endl;
+	
+	if (!save(cat)) { cout << endl << "ERROR: Something is wrong with the save file." << endl; }
+	
 	return 0;
+}
+
+bool save(Feline& save_cat) {
+	ofstream fout;
+	
+	fout.open("cat.txt", ios::ate);
+	
+	if (!fout.is_open()) {
+		cout << endl << "ERROR: There is something wrong with the save file." << endl;
+		return false;
+	}
+	
+	fout << save_cat.getName() << endl;
+	fout << save_cat.getHungerStatus() << endl;
+	fout << save_cat.getComfortStatus() << endl;
+	
+	fout.close();
+	
+	return true;
+}
+
+bool load(Feline& load_cat) {
+	ifstream fin;
+	string ignore_firstLine;
+	string temp_name, temp_hunger, temp_comfort;
+	
+	fin.open("cat.txt");
+	if (!fin.is_open()) {
+		cout << endl << "ERROR: The load file did not open correctly." << endl;
+		return false;
+	}
+	
+	fin >> temp_name, temp_hunger, temp_comfort;
+	
+	load_cat.setName(temp_name);
+	load_cat.setHunger(temp_hunger);
+	load_cat.setComfort(temp_comfort);
+	
+	fin.close();
+	
+	return true;
 }

@@ -28,7 +28,7 @@ private:
 	
 public:
 	// FUNCTION THAT BEGINS SIM
-	void beginCatSim() { 		
+	void nameYourCat() { 		
 		cout << "Enter the name of your cat: ";
 		cin >> name;
 		
@@ -38,10 +38,15 @@ public:
 		comfort_count = 0;
 	}
 	
+	// 'set' CLASS TYPE FUNCTIONS
+	void setName(string temp_name) { name = temp_name; }
+	void setHunger(string temp_hunger) { hunger_level = temp_hunger; }
+	void setComfort(string temp_comfort) { comfort_level = temp_comfort; }
+	
 	// 'get' CLASS TYPE FUNCTIONS
 	string getName() { return name; }
-	string getHungerLevel() { return hunger_level; }
-	string getcomfort_level() { return comfort_level; }
+	string getHungerStatus() { return hunger_level; }
+	string getComfortStatus() { return comfort_level; }
 	
 	// ITERATE CAT STATS FUNCTIONS
 	void iterateHunger() {
