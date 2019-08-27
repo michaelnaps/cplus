@@ -1,0 +1,5 @@
+You have 1 rectangle(s) in you list.
+
+Rectangle: jack, Location is (29, 8), Length is 5, Height is 1, Area is 5, Perimeter is 12, Midpoint is located at (31.5, 8.5)
+     After scaleBy3: Location is (24, 7), Length is 15, Height is 3, Area is 45, Perimeter is 36, Midpoint is located at (31.5, 8.5)
+

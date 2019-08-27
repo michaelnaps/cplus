@@ -1,0 +1,4 @@
+
+Rectangle: goliath, Location is (0, 0), Length is 23, Height is 34, Area is 782, Perimeter is 114, Midpoint is located at (11.5, 17)
+     After scaleBy3: Location is (-23, -34), Length is 69, Height is 102, Area is 7038, Perimeter is 342, Midpoint is located at (11.5, 17)
+
