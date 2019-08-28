@@ -37,8 +37,8 @@ int main()
 	if (cat.getName().length() == 0) { cat.nameYourCat(); }
 	
 	cout << cat.getName() << endl;
-	cout << cat.getName() << endl;
-	cout << cat.getName() << endl;
+	cout << cat.getHungerStatus() << endl;
+	cout << cat.getComfortStatus() << endl;
 	
 	if (!save(cat)) { cout << endl << "ERROR: Something is wrong with the save file." << endl; }
 	
@@ -75,12 +75,11 @@ bool load(Feline& load_cat) {
 	}
 	
 	fin >> temp_name, temp_hunger, temp_comfort;
+	fin.close();
 	
 	load_cat.setName(temp_name);
 	load_cat.setHunger(temp_hunger);
 	load_cat.setComfort(temp_comfort);
-	
-	fin.close();
 	
 	return true;
 }
