@@ -12,6 +12,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <ctime>
+#include <cstdlib>
 #include "Feline.h"
 #include "Feed.h"
 using namespace std;
@@ -23,6 +25,9 @@ bool save(Feline& save_cat);
 // 'load()' FUNCTION
 bool load(Feline& load_cat);
 
+// 'display_cat()' FUNCTION
+void display_cat();
+
 int main()
 {
 	Feline cat;
@@ -31,6 +36,8 @@ int main()
 	
 	if (cat.getName().length() == 0) { cat.nameYourCat(); }
 	
+	cout << cat.getName() << endl;
+	cout << cat.getName() << endl;
 	cout << cat.getName() << endl;
 	
 	if (!save(cat)) { cout << endl << "ERROR: Something is wrong with the save file." << endl; }
@@ -59,7 +66,6 @@ bool save(Feline& save_cat) {
 
 bool load(Feline& load_cat) {
 	ifstream fin;
-	string ignore_firstLine;
 	string temp_name, temp_hunger, temp_comfort;
 	
 	fin.open("cat.txt");
