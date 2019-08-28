@@ -65,6 +65,7 @@ public:
 		else if (comfort_level == "Tired and bored") { comfort_level = "Sad"; }
 		else if (comfort_level == "Sad") { comfort_level = "Depressed"; }
 		else if (comfort_level == "Depressed") { ++comfort_count; }
+		else { cout << endl << "ERROR: There is something wrong with the simulation's comfort functionality." << endl; }
 		
 		if (comfort_count == 5) { this->killcat(); }
 	}
