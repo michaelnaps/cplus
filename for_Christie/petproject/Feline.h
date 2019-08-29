@@ -17,6 +17,11 @@ private:
 	string comfort_level;
 	int hunger_count, comfort_count;
 	
+	void create_cat() {
+		this->setHunger("Full");
+		this->setComfort("Happy");
+	}
+	
 public:
 	// FUNCTION THAT BEGINS SIM
 	void nameYourCat() { 		
@@ -30,7 +35,10 @@ public:
 	}
 	
 	// 'set' CLASS TYPE FUNCTIONS
-	void setName(string temp_name) { name = temp_name; }
+	void setName(string temp_name) { 
+		name = temp_name;
+		this->create_cat();
+	}
 	void setHunger(string temp_hunger) { hunger_level = temp_hunger; }
 	void setComfort(string temp_comfort) { comfort_level = temp_comfort; }
 	
@@ -53,7 +61,7 @@ public:
 		if (comfort_level == "Happy") { comfort_level = "Satisfied"; }
 		else if (comfort_level == "Satisfied") { comfort_level = "Bored"; }
 		else if (comfort_level == "Bored") { comfort_level = "Tired and bored"; }
-		else if (comfort_level == "Tired and bored") { comfort_level = "Sad"; }
+		else if (comfort_level == "Super Bored") { comfort_level = "Sad"; }
 		else if (comfort_level == "Sad") { comfort_level = "Depressed"; }
 		else if (comfort_level == "Depressed") { ++comfort_count; }
 		else { cout << endl << "ERROR: There is something wrong with the simulation's comfort functionality." << endl; }

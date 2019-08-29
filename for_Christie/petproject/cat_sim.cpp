@@ -34,16 +34,18 @@ void run_command(string input1, string input2);
 int main()
 {
 	Feline cat;
+	string temp_name;
 	string userInput1, userInput2;
-	string ignoreinput;
+	
+	cout << "What is your cat's name? ";
+	cin >> temp_name;
+	cat.setName(temp_name);
 	
 	if (load(cat)) {
 		cout << "Your cat's name is " << cat.getName() << endl;
 		cout << "Hunger: " << cat.getHungerStatus() << endl;
 		cout << "Comfort: " << cat.getComfortStatus() << endl;
 	}
-	
-	else { cat.nameYourCat(); }
 	
 	do {
 		cout << "What would you like to do? ";
@@ -57,8 +59,7 @@ int main()
 		
 	} while (userInput1 != "stop");
 		
-	if (!save(cat)) 
-	{ cout << endl << "ERROR: Something is wrong with the save file." << endl; }
+	save(cat);
 
 	return 0;
 }
@@ -66,10 +67,10 @@ int main()
 bool save(Feline& save_cat) {
 	ofstream fout;
 	
-	fout.open("cat.txt", ios::ate);
+	fout.open((save_cat.getName() + ".txt"), ios::ate);
 	
 	if (!fout.is_open()) {
-		cout << endl << "ERROR: There is something wrong with the save file." << endl;
+		cout << endl << "ERROR: Something is wrong with the save file." << endl;
 		return false;
 	}
 	
@@ -86,9 +87,11 @@ bool load(Feline& load_cat) {
 	ifstream fin;
 	string temp_name, temp_hunger, temp_comfort;
 	
-	fin.open("cat.txt");
+	fin.open((load_cat.getName() + ".txt"));
+	
 	if (!fin.is_open()) {
-		cout << endl << "ERROR: The load file did not open correctly." << endl;
+		cout << "There is no load file on record for that cat name." << endl;
+		cout << "Your cat is being born now..." << endl;
 		return false;
 	}
 	
