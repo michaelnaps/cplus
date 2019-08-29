@@ -64,17 +64,26 @@ public:
 		else if (comfort_level == "Super Bored") { comfort_level = "Sad"; }
 		else if (comfort_level == "Sad") { comfort_level = "Depressed"; }
 		else if (comfort_level == "Depressed") { ++comfort_count; }
-		else { cout << endl << "ERROR: There is something wrong with the simulation's comfort functionality." << endl; }
+		else { 
+			cout << endl << "ERROR: There is something wrong with the simulation's comfort functionality." << endl;
+			cout << "Resetting cat's comfort." << endl;
+			comfort_level = "Happy";
+			comfort_count = 0;
+		}
 		
 		if (comfort_count == 5) { this->killcat(); }
 	}
 	
 	bool killcat() {
+		string filename(name + ".txt");
+		remove(filename.c_str());
+		
 		name = "";
 		hunger_level = "";
 		comfort_level = "";
 		cout << endl << "Your cat has died, probably due to neglect." << endl;
-		cout << endl << "Maybe by choice." << endl;
+		cout << "Maybe by choice." << endl;
+		
 		return false;
 	}
 };

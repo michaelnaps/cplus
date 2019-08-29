@@ -20,7 +20,7 @@ using namespace std;
 
 // FUNCTION INITIALIZATIONS INITIALIZATION
 // 'save()' FUNCTION
-bool save(Feline& save_cat);
+bool save(const Feline& save_cat);
 
 // 'load()' FUNCTION INITIALIZATION
 bool load(Feline& load_cat);
@@ -29,7 +29,7 @@ bool load(Feline& load_cat);
 void display_cat();
 
 // 'run_command()' FUNCTION INITIALIZATION
-void run_command(string input1, string input2);
+void run_command(const string input1, const string input2);
 
 int main()
 {
@@ -58,15 +58,16 @@ int main()
 			cat.killcat();
 		}
 		
-	} while (userInput1 != "stop");
+	} while (userInput1 != "stop" && userInput1 != "Stop");
 		
-	save(cat); // once the user decides to stop playing, the cat is saved to their specific file
+	// once the user decides to stop playing, the cat is saved to their specific file 
 	// this overwrites any previous information about the cat of the same name
+	save(cat);
 
 	return 0;
 }
 
-bool save(Feline& save_cat) {
+bool save(const Feline& save_cat) {
 	ofstream fout;
 	
 	fout.open((save_cat.getName() + ".txt"), ios::ate);
@@ -107,7 +108,7 @@ bool load(Feline& load_cat) {
 	return true;
 }
 
-void run_command(string input1, string input2) {
+void run_command(const string input1, const string input2) {
 	if (input1 == "feed" || input1 == "Feed") {
 		Feed temp_food;
 		temp_food.setFoodType(input2);

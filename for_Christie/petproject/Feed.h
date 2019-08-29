@@ -11,7 +11,23 @@ class Feed
 {
 private:
 	string food_type;
+	
+	bool check_food() {
+		if (food_type == "sushi" || food_type == "Sushi") {
+			cout << endl << "That food is acceptable." << endl;
+			return true;
+		}
+		else {
+			cout << endl << "That food is not acceptable" << endl;
+			return false;
+		}
+	}
 
 public:
-	void setFoodType(string temp) { food_type = temp; }
+	bool setFoodType(string temp) {
+		food_type = temp;
+		
+		if (this->check_food()) { return true; }		
+		else { return false; )
+	}
 };
