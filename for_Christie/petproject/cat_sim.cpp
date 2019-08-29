@@ -37,10 +37,11 @@ int main()
 	string temp_name;
 	string userInput1, userInput2;
 	
-	cout << "What is your cat's name? ";
+	cout << "What is your cat's name? ";  // ask user for the name of their cat
 	cin >> temp_name;
 	cat.setName(temp_name);
 	
+	// if cat of the same name has been made before, the load file for that cat is opened
 	if (load(cat)) {
 		cout << "Your cat's name is " << cat.getName() << endl;
 		cout << "Hunger: " << cat.getHungerStatus() << endl;
@@ -59,7 +60,8 @@ int main()
 		
 	} while (userInput1 != "stop");
 		
-	save(cat);
+	save(cat); // once the user decides to stop playing, the cat is saved to their specific file
+	// this overwrites any previous information about the cat of the same name
 
 	return 0;
 }
@@ -89,7 +91,7 @@ bool load(Feline& load_cat) {
 	
 	fin.open((load_cat.getName() + ".txt"));
 	
-	if (!fin.is_open()) {
+	if (!fin.is_open()) {  // if there is no file for the named cat, one is made
 		cout << "There is no load file on record for that cat name." << endl;
 		cout << "Your cat is being born now..." << endl;
 		return false;
@@ -106,5 +108,8 @@ bool load(Feline& load_cat) {
 }
 
 void run_command(string input1, string input2) {
-	
+	if (input1 == "feed" || input1 == "Feed") {
+		Feed temp_food;
+		temp_food.setFoodType(input2);
+	}
 }

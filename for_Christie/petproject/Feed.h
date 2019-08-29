@@ -1,0 +1,17 @@
+// File: Feed.h
+// Created by: Michael Napoli
+// Created on: 8/29/2019
+// Last modified on: 
+
+/*
+	Class type that evaluates the food being given to a simulated cat.
+*/
+
+class Feed
+{
+private:
+	string food_type;
+
+public:
+	void setFoodType(string temp) { food_type = temp; }
+};
