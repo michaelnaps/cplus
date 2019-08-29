@@ -17,15 +17,6 @@ private:
 	string comfort_level;
 	int hunger_count, comfort_count;
 	
-	bool killcat() {
-		name = "";
-		hunger_level = "";
-		comfort_level = "";
-		cout << endl << "Your cat has died, probably due to neglect." << endl;
-		
-		return false;
-	}
-	
 public:
 	// FUNCTION THAT BEGINS SIM
 	void nameYourCat() { 		
@@ -68,6 +59,15 @@ public:
 		else { cout << endl << "ERROR: There is something wrong with the simulation's comfort functionality." << endl; }
 		
 		if (comfort_count == 5) { this->killcat(); }
+	}
+	
+	bool killcat() {
+		name = "";
+		hunger_level = "";
+		comfort_level = "";
+		cout << endl << "Your cat has died, probably due to neglect." << endl;
+		cout << endl << "Maybe by choice." << endl;
+		return false;
 	}
 };
 

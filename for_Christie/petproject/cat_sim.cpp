@@ -18,27 +18,48 @@
 #include "Feed.h"
 using namespace std;
 
-// FUNCTION INITIALIZATIONS
+// FUNCTION INITIALIZATIONS INITIALIZATION
 // 'save()' FUNCTION
 bool save(Feline& save_cat);
 
-// 'load()' FUNCTION
+// 'load()' FUNCTION INITIALIZATION
 bool load(Feline& load_cat);
 
-// 'display_cat()' FUNCTION
+// 'display_cat()' FUNCTION INITIALIZATION
 void display_cat();
+
+// 'run_command()' FUNCTION INITIALIZATION
+void run_command(string input1, string input2);
 
 int main()
 {
 	Feline cat;
+	string userInput1, userInput2;
+	string ignoreinput;
 	
-	load(cat);
+	if (load(cat)) {
+		cout << "Your cat's name is " << cat.getName() << endl;
+		cout << "Hunger: " << cat.getHungerStatus() << endl;
+		cout << "Comfort: " << cat.getComfortStatus() << endl;
+	}
 	
-	if (cat.getName().length() == 0) { cat.nameYourCat(); }
+	else { cat.nameYourCat(); }
 	
-	// if (!save(cat)) 
-	// { cout << endl << "ERROR: Something is wrong with the save file." << endl; }
-	
+	do {
+		cout << "What would you like to do? ";
+		cin >> userInput1 >> userInput2;
+		
+		run_command(userInput1, userInput2);
+		
+		if (userInput1 == "kill" && userInput2 == cat.getName()) {
+			cat.killcat();
+		}
+		
+	} while (userInput1 != "stop");
+		
+	if (!save(cat)) 
+	{ cout << endl << "ERROR: Something is wrong with the save file." << endl; }
+
 	return 0;
 }
 
@@ -71,8 +92,7 @@ bool load(Feline& load_cat) {
 		return false;
 	}
 	
-	fin >> temp_name, temp_hunger, temp_comfort;
-	cout << temp_name << " " << temp_hunger << " " << temp_comfort << endl;
+	fin >> temp_name >> temp_hunger >> temp_comfort;
 	fin.close();
 	
 	load_cat.setName(temp_name);
@@ -80,4 +100,8 @@ bool load(Feline& load_cat) {
 	load_cat.setComfort(temp_comfort);
 	
 	return true;
+}
+
+void run_command(string input1, string input2) {
+	
 }
