@@ -7,6 +7,10 @@
 	Class type that evaluates the food being given to a simulated cat.
 */
 
+#include <iostream>
+#include <string>
+using namespace std;
+
 class Feed
 {
 private:
@@ -14,11 +18,11 @@ private:
 	
 	bool check_food() {
 		if (food_type == "sushi" || food_type == "Sushi") {
-			cout << endl << "That food is acceptable." << endl;
+			cout << endl << "The cat accepts this meal." << endl;
 			return true;
 		}
 		else {
-			cout << endl << "That food is not acceptable" << endl;
+			cout << endl << "The cat does not accepts and is now mad at you. Try again!" << endl;
 			return false;
 		}
 	}

@@ -15,12 +15,11 @@
 #include <ctime>
 #include <cstdlib>
 #include "Feline.h"
-#include "Feed.h"
 using namespace std;
 
 // FUNCTION INITIALIZATIONS INITIALIZATION
 // 'save()' FUNCTION
-bool save(const Feline& save_cat);
+bool save(Feline& save_cat);
 
 // 'load()' FUNCTION INITIALIZATION
 bool load(Feline& load_cat);
@@ -29,7 +28,7 @@ bool load(Feline& load_cat);
 void display_cat();
 
 // 'run_command()' FUNCTION INITIALIZATION
-void run_command(const string input1, const string input2);
+Feline run_command(const string input1, const string input2);
 
 int main()
 {
@@ -52,7 +51,7 @@ int main()
 		cout << "What would you like to do? ";
 		cin >> userInput1 >> userInput2;
 		
-		run_command(userInput1, userInput2);
+		cat.run_command(userInput1, userInput2);
 		
 		if (userInput1 == "kill" && userInput2 == cat.getName()) {
 			cat.killcat();
@@ -62,12 +61,14 @@ int main()
 		
 	// once the user decides to stop playing, the cat is saved to their specific file 
 	// this overwrites any previous information about the cat of the same name
-	save(cat);
+	if (cat.getName().length() != 0) { 
+		if (save(cat)) { cout << "Your cat was saved successfully." << endl; }
+	}
 
 	return 0;
 }
 
-bool save(const Feline& save_cat) {
+bool save(Feline& save_cat) {
 	ofstream fout;
 	
 	fout.open((save_cat.getName() + ".txt"), ios::ate);
@@ -106,11 +107,4 @@ bool load(Feline& load_cat) {
 	load_cat.setComfort(temp_comfort);
 	
 	return true;
-}
-
-void run_command(const string input1, const string input2) {
-	if (input1 == "feed" || input1 == "Feed") {
-		Feed temp_food;
-		temp_food.setFoodType(input2);
-	}
 }

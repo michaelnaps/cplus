@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include "Feed.h"
 using namespace std;
 
 class Feline
@@ -18,20 +19,18 @@ private:
 	int hunger_count, comfort_count;
 	
 	void create_cat() {
-		this->setHunger("Full");
-		this->setComfort("Happy");
+		hunger_level = "Full";
+		comfort_level = "Happy";
+		comfort_count = 0;
+		hunger_count = 0;
 	}
 	
 public:
 	// FUNCTION THAT BEGINS SIM
 	void nameYourCat() { 		
 		cout << "Enter the name of your cat: ";
-		cin >> name;
-		
-		hunger_level = "Full";
-		hunger_count = 0;
-		comfort_level = "Happy";
-		comfort_count = 0;
+		cin >> name;		
+		this->create_cat();
 	}
 	
 	// 'set' CLASS TYPE FUNCTIONS
@@ -82,9 +81,19 @@ public:
 		hunger_level = "";
 		comfort_level = "";
 		cout << endl << "Your cat has died, probably due to neglect." << endl;
-		cout << "Maybe by choice." << endl;
+		cout << "Maybe by choice." << endl << endl;
 		
 		return false;
+	}
+
+	void run_command(const string input1, const string input2) {
+		if (input1 == "feed" || input1 == "Feed") {
+			Feed temp_food;
+			temp_food.setFoodType(input2);
+		}
+		else if (input1 == "buy" && input2 == "cat") {
+			this->nameYourCat();
+		}
 	}
 };
 
