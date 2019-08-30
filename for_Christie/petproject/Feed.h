@@ -18,7 +18,7 @@ private:
 	
 	bool check_food() {
 		if (food_type == "sushi" || food_type == "Sushi") {
-			cout << endl << "The cat accepts this meal." << endl;
+			cout << "The cat accepts this meal." << endl;
 			return true;
 		}
 		else {
@@ -32,6 +32,6 @@ public:
 		food_type = temp;
 		
 		if (this->check_food()) { return true; }		
-		else { return false; )
+		else { return false; }
 	}
 };

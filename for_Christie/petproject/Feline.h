@@ -52,7 +52,7 @@ public:
 		else if (hunger_level == "A little hungry") { hunger_level = "Hungry"; }
 		else if (hunger_level == "Hungry") { hunger_level = "Starving"; }
 		else if (hunger_level == "Starving") { ++hunger_count; }
-		else { cout << endl << "ERROR: There is something wrong with the simulations hunger features." << endl; }
+		else { cout << endl << "ERROR: There is something wrong with the simulation's hunger features." << endl; }
 		
 		if (hunger_count == 5) { this->killcat(); }
 	}
@@ -80,6 +80,8 @@ public:
 		name = "";
 		hunger_level = "";
 		comfort_level = "";
+		hunger_count = 0;
+		comfort_count = 0;
 		cout << endl << "Your cat has died, probably due to neglect." << endl;
 		cout << "Maybe by choice." << endl << endl;
 		
@@ -89,11 +91,17 @@ public:
 	void run_command(const string input1, const string input2) {
 		if (input1 == "feed" || input1 == "Feed") {
 			Feed temp_food;
-			temp_food.setFoodType(input2);
+			if (temp_food.setFoodType(input2)) {
+				this->feedCat();
+			}
 		}
 		else if (input1 == "buy" && input2 == "cat") {
 			this->nameYourCat();
 		}
+	}
+	
+	void feedCat() {
+		
 	}
 };
 

@@ -57,6 +57,8 @@ int main()
 			cat.killcat();
 		}
 		
+		cat.iterateHunger();
+		cat.iterateComfort();
 	} while (userInput1 != "stop" && userInput1 != "Stop");
 		
 	// once the user decides to stop playing, the cat is saved to their specific file 
@@ -83,6 +85,8 @@ bool save(Feline& save_cat) {
 	fout << save_cat.getComfortStatus() << " ";
 	
 	fout.close();
+	
+	cout << endl;
 	
 	return true;
 }
