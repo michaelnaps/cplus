@@ -17,12 +17,32 @@ private:
 	string food_type;
 	
 	bool check_food() {
-		if (food_type == "sushi" || food_type == "Sushi") {
+		if (food_type == "sushi") {
+			cout << "The cat accepts this meal." << endl;
+			return true;
+		}
+		else if (food_type == "fish") {
+			cout << "The cat accepts this meal." << endl;
+			return true;
+		}
+		else if (food_type == "milk") {
+			cout << "The cat accepts this meal." << endl;
+			return true;
+		}
+		else if (food_type == "catfood") {
+			cout << "The cat accepts this meal." << endl;
+			return true;
+		}
+		else if (food_type == "pizza") {
+			cout << "The cat accepts this meal." << endl;
+			return true;
+		}
+		else if (food_type == "tuna") {
 			cout << "The cat accepts this meal." << endl;
 			return true;
 		}
 		else {
-			cout << endl << "The cat does not accepts and is now mad at you. Try again!" << endl;
+			cout << endl << "The cat does not accept and is considering clawing you. Try again!" << endl;
 			return false;
 		}
 	}
