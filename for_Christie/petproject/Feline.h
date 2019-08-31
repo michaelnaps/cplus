@@ -22,10 +22,20 @@ private:
 	void feedCat() {
 		if ((hunger_count - 3) >= 0) { hunger_count =- 3; }
 		else { hunger_count = 0; }
+		cout << "The cat accepts this meal." << endl;
 	}
 	void comfortCat() {
 		if ((comfort_count - 4) >= 0) { comfort_count =- 4; }
 		else { comfort_count = 0; }
+		cout << "The cat enjoys your affection." << endl;
+	}
+	
+	void comfortCommands(string& input1, string& input2) {
+		if (input1 == "pet" && input2 == name) { this->comfortCat(); }
+		else if (input1 == "cuddle" && input2 == name) { this->comfortCat(); }			
+		else if (input1 == "hug" && input2 == name) { this->comfortCat(); }
+		else if (input1 == "kiss" && input2 == name) { this->comfortCat(); }
+		else { cout << "The cat does not accept your attempt to comfort." << endl; }
 	}
 	
 public:
@@ -97,16 +107,14 @@ public:
 		return false;
 	}
 
-	void run_command(const string input1, const string input2) {
+	void run_command(string& input1, string& input2) {
 		if (input1 == "feed" || input1 == "Feed") {
 			Feed temp_food;
-			if (temp_food.setFoodType(input2)) {
-				this->feedCat();
-			}
+			if (temp_food.setFoodType(input2)) { this->feedCat(); }
 		}
-		else if (input1 == "buy" && input2 == "cat") {
-			this->nameYourCat();
-		}
+		else if (input1 == "buy" && input2 == "cat") { this->nameYourCat(); }		
+		if (input1 == "kill" && input2 == name) { this->killcat(); }
+		else { this->comfortCommands(input1, input2); }
 	}
 };
 

@@ -1,1 +1,1 @@
-Brutus 3 3
+Brutus 12 6 

@@ -39,17 +39,14 @@ int main()
 		display_cat(cat);
 	}
 	
-	do {
+	do {		
+		userInput1.clear();
+		userInput2.clear();
+		
 		cout << "What would you like to do? ";
 		cin >> userInput1 >> userInput2;
 		
 		cat.run_command(userInput1, userInput2);
-		
-		if (userInput1 == "kill" && userInput2 == cat.getName()) {
-			cat.killcat();
-		}
-		
-		cout << endl;
 		display_cat(cat);
 		cout << endl;
 		
@@ -81,8 +78,6 @@ bool save(Feline& save_cat) {
 	fout << save_cat.getComfortCount() << " ";
 	
 	fout.close();
-	
-	cout << endl;
 	
 	return true;
 }
