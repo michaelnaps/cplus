@@ -39,19 +39,25 @@ public:
 	}
 	
 	// 'set' CLASS TYPE FUNCTIONS
-	void setName(string temp_name) { 
-		name = temp_name;
-	}
-	void setHunger(string temp_hunger) { hunger_level = temp_hunger; }
-	void setComfort(string temp_comfort) { comfort_level = temp_comfort; }
+	void setName(string temp_name) { name = temp_name; }
+	void setHungerCount(int temp_hcount) { hunger_count = temp_hcount; }
+	void setComfortCount(int temp_ccount) { comfort_count = temp_ccount; }
 	
 	// 'get' CLASS TYPE FUNCTIONS
 	string getName() { return name; }
-	string getHungerStatus() { return hunger_level; }
-	string getComfortStatus() { return comfort_level; }
+	string getHungerStatus() {
+		this->iterateComfort(false);
+		return hunger_level; 
+	}
+	string getComfortStatus() {
+		this->iterateComfort(false);
+		return comfort_level; 
+	}
+	int getHungerCount() { return hunger_count; }
+	int getComfortCount() { return comfort_count; }
 	
 	// ITERATE CAT STATS FUNCTIONS
-	void iterateHunger() {
+	void iterateHunger(bool iterate_TF) {
 		if (hunger_count <= 3) { hunger_level = "Full"; }
 		else if (hunger_count > 3 && hunger_count <= 6) { hunger_level = "A little hungry"; }
 		else if (hunger_count > 6 && hunger_count <=10) { hunger_level = "Hungry"; }
@@ -60,9 +66,9 @@ public:
 		
 		if (hunger_count > 16) { this->killcat(); }
 		
-		++hunger_count;
+		if (iterate_TF) { ++hunger_count; }
 	}
-	void iterateComfort() {		
+	void iterateComfort(bool iterate_TF) {		
 		if (comfort_count <= 3) { comfort_level = "Happy"; }
 		else if (comfort_count > 3 && comfort_count <= 6) { comfort_level = "Satisfied"; }
 		else if (comfort_count > 6 && comfort_count <=10) { comfort_level = "Bored"; }
@@ -73,7 +79,7 @@ public:
 		
 		if (comfort_count > 24) { this->killcat(); }
 		
-		++comfort_count;
+		if (iterate_TF) { ++comfort_count; }
 	}
 	
 	bool killcat() {

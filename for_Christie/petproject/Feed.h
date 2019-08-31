@@ -42,7 +42,7 @@ private:
 			return true;
 		}
 		else {
-			cout << endl << "The cat does not accept and is considering clawing you. Try again!" << endl;
+			cout << "The cat does not accept and is considering clawing you. Try again!" << endl;
 			return false;
 		}
 	}

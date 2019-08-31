@@ -22,10 +22,7 @@ bool save(Feline& save_cat);
 bool load(Feline& load_cat);
 
 // 'display_cat()' FUNCTION INITIALIZATION
-void display_cat();
-
-// 'run_command()' FUNCTION INITIALIZATION
-Feline run_command(const string input1, const string input2);
+void display_cat(Feline& disp_cat);
 
 int main()
 {
@@ -39,9 +36,7 @@ int main()
 	
 	// if cat of the same name has been made before, the load file for that cat is opened
 	if (load(cat)) {
-		cout << "Your cat's name is " << cat.getName() << endl;
-		cout << "Hunger: " << cat.getHungerStatus() << endl;
-		cout << "Comfort: " << cat.getComfortStatus() << endl;
+		display_cat(cat);
 	}
 	
 	do {
@@ -54,8 +49,12 @@ int main()
 			cat.killcat();
 		}
 		
-		cat.iterateHunger();
-		cat.iterateComfort();
+		cout << endl;
+		display_cat(cat);
+		cout << endl;
+		
+		cat.iterateHunger(true);
+		cat.iterateComfort(true);
 	} while (userInput1 != "stop" && userInput1 != "Stop");
 		
 	// once the user decides to stop playing, the cat is saved to their specific file 
@@ -78,8 +77,8 @@ bool save(Feline& save_cat) {
 	}
 	
 	fout << save_cat.getName() << " ";
-	fout << save_cat.getHungerStatus() << " ";
-	fout << save_cat.getComfortStatus() << " ";
+	fout << save_cat.getHungerCount() << " ";
+	fout << save_cat.getComfortCount() << " ";
 	
 	fout.close();
 	
@@ -90,7 +89,8 @@ bool save(Feline& save_cat) {
 
 bool load(Feline& load_cat) {
 	ifstream fin;
-	string temp_name, temp_hunger, temp_comfort;
+	string temp_name;
+	int temp_hungerCount, temp_comfortCount;
 	
 	fin.open((load_cat.getName() + ".txt"));
 	
@@ -100,12 +100,19 @@ bool load(Feline& load_cat) {
 		return false;
 	}
 	
-	fin >> temp_name >> temp_hunger >> temp_comfort;
+	fin >> temp_name >> temp_hungerCount >> temp_comfortCount;
 	fin.close();
 	
 	load_cat.setName(temp_name);
-	load_cat.setHunger(temp_hunger);
-	load_cat.setComfort(temp_comfort);
+	load_cat.setHungerCount(temp_hungerCount);
+	load_cat.setComfortCount(temp_comfortCount);
 	
 	return true;
+}
+
+// 'display_cat()' FUNCTION INITIALIZATION
+void display_cat(Feline& disp_cat) {
+	cout << "Your cat's name is " << disp_cat.getName() << endl;
+	cout << "Hunger: " << disp_cat.getHungerStatus() << endl;
+	cout << "Comfort: " << disp_cat.getComfortStatus() << endl;
 }
