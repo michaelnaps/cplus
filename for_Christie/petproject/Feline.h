@@ -113,7 +113,8 @@ public:
 			if (temp_food.setFoodType(input2)) { this->feedCat(); }
 		}
 		else if (input1 == "buy" && input2 == "cat") { this->nameYourCat(); }		
-		if (input1 == "kill" && input2 == name) { this->killcat(); }
+		else if (input1 == "kill" && input2 == name) { this->killcat(); }
+		else if (input1 == "stop" && input2 == "game") { };
 		else { this->comfortCommands(input1, input2); }
 	}
 };
