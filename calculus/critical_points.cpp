@@ -10,7 +10,18 @@ int main()
 	
 	for (double i(1); i < 100; ++i) {
 		for (double k(1); k < 100; ++k) {
-			if (((102 * k) - (4 * i * k) - (2 * k * k)) == 0) { 
+			if (4 * i + 2 * k == 102) {
+				cout << i << " " << k << " " << i * k << endl;
+				x_list.push_back(i);
+				y_list.push_back(k);
+			}
+		}
+	}
+	cout << endl;
+	for (double i(1); i < 100; ++i) {
+		for (double k(1); k < 100; ++k) {
+			if (4 * k + 2 * i == 102) {
+				cout << i << " " << k << " " << i * k << endl;
 				x_list.push_back(i);
 				y_list.push_back(k);
 			}
