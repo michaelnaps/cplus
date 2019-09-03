@@ -20,22 +20,34 @@ private:
 	int comfort_count;
 		
 	void feedCat() {
-		if ((hunger_count - 3) >= 0) { hunger_count =- 3; }
-		else { hunger_count = 0; }
+		if (((hunger_count - 3) >= 0)) { 
+			hunger_count -= 3;
+			this->iterateHunger(false);
+		}
+		else { 
+			hunger_count = 0; 
+			this->iterateHunger(false);
+		}
 		cout << "The cat accepts this meal." << endl;
 	}
 	void comfortCat() {
-		if ((comfort_count - 4) >= 0) { comfort_count =- 4; }
-		else { comfort_count = 0; }
+		if (((comfort_count - 2) >= 0)) { 
+			comfort_count -= 3; 
+			this->iterateComfort(false);
+		}
+		else { 
+			comfort_count = 0;
+			this->iterateComfort(false);
+		}
 		cout << "The cat enjoys your affection." << endl;
 	}
 	
-	void comfortCommands(string& input1, string& input2) {
-		if (input1 == "pet" && input2 == name) { this->comfortCat(); }
-		else if (input1 == "cuddle" && input2 == name) { this->comfortCat(); }			
-		else if (input1 == "hug" && input2 == name) { this->comfortCat(); }
-		else if (input1 == "kiss" && input2 == name) { this->comfortCat(); }
-		else { cout << "The cat does not accept your attempt to comfort." << endl; }
+	bool comfortCommands(string& input1, string& input2) {
+		if (input1 == "pet" && input2 == name) { return true; }
+		else if (input1 == "cuddle" && input2 == name) { return true; }			
+		else if (input1 == "hug" && input2 == name) { return true; }
+		else if (input1 == "snuggle" && input2 == name) { return true; }
+		else { return false; }
 	}
 	
 public:
@@ -50,15 +62,18 @@ public:
 	
 	// 'set' CLASS TYPE FUNCTIONS
 	void setName(string temp_name) { name = temp_name; }
-	void setHungerCount(int temp_hcount) { hunger_count = temp_hcount; }
-	void setComfortCount(int temp_ccount) { comfort_count = temp_ccount; }
+	void setHungerCount(int temp_hcount) {
+		hunger_count = temp_hcount; 
+		this->iterateHunger(false);
+	}
+	void setComfortCount(int temp_ccount) { 
+		comfort_count = temp_ccount;
+		this->iterateComfort(false);
+	}
 	
 	// 'get' CLASS TYPE FUNCTIONS
 	string getName() { return name; }
-	string getHungerStatus() {
-		this->iterateComfort(false);
-		return hunger_level; 
-	}
+	string getHungerStatus() { return hunger_level; }
 	string getComfortStatus() {
 		this->iterateComfort(false);
 		return comfort_level; 
@@ -68,30 +83,38 @@ public:
 	
 	// ITERATE CAT STATS FUNCTIONS
 	void iterateHunger(bool iterate_TF) {
-		if (hunger_count <= 3) { hunger_level = "Full"; }
+		if (hunger_count >= 0 && hunger_count <= 3) { hunger_level = "Full"; }
 		else if (hunger_count > 3 && hunger_count <= 6) { hunger_level = "A little hungry"; }
-		else if (hunger_count > 6 && hunger_count <=10) { hunger_level = "Hungry"; }
+		else if (hunger_count > 6 && hunger_count <= 10) { hunger_level = "Hungry"; }
 		else if (hunger_count > 10) { hunger_level = "Starving"; }
-		else { cout << endl << "ERROR: There is something wrong with the simulation's hunger features." << endl; }
+		else {
+			cout << "hunger_count = " << hunger_count << endl;
+			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
+		}
 		
 		if (hunger_count > 16) { this->killcat(); }
 		
 		if (iterate_TF) { ++hunger_count; }
 	}
 	void iterateComfort(bool iterate_TF) {		
-		if (comfort_count <= 3) { comfort_level = "Happy"; }
+		if (comfort_count >= 0 && comfort_count <= 3) { comfort_level = "Happy"; }
 		else if (comfort_count > 3 && comfort_count <= 6) { comfort_level = "Satisfied"; }
-		else if (comfort_count > 6 && comfort_count <=10) { comfort_level = "Bored"; }
-		else if (comfort_count > 10 && comfort_count <= 14) { comfort_level = "Bored and Tired"; }
-		else if (comfort_count > 14 && comfort_count <= 18) { comfort_level = "Sad"; }
-		else if (comfort_count > 18) { comfort_level = "Depressed"; }
-		else { cout << endl << "ERROR: There is something wrong with the simulation's hunger features." << endl; }
+		else if (comfort_count > 6 && comfort_count <= 9) { comfort_level = "Bored"; }
+		else if (comfort_count > 9 && comfort_count <= 12) { comfort_level = "Bored and Tired"; }
+		else if (comfort_count > 12 && comfort_count <= 15) { comfort_level = "Sad"; }
+		else if (comfort_count > 15) { comfort_level = "Depressed"; }
+		else { 
+			cout << "comfort_count = " << comfort_count << endl;
+			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
+		}
 		
-		if (comfort_count > 24) { this->killcat(); }
+		if (comfort_count > 20) { this->killcat(); }
 		
 		if (iterate_TF) { ++comfort_count; }
 	}
 	
+	// KILL CAT FUNCTION	
+	// erases load function for teh named cat
 	bool killcat() {
 		string filename(name + ".txt");
 		remove(filename.c_str());
@@ -112,10 +135,10 @@ public:
 			Feed temp_food;
 			if (temp_food.setFoodType(input2)) { this->feedCat(); }
 		}
-		else if (input1 == "buy" && input2 == "cat") { this->nameYourCat(); }		
+		else if (input1 == "buy" && input2 == "cat") { this->nameYourCat(); }
 		else if (input1 == "kill" && input2 == name) { this->killcat(); }
-		else if (input1 == "stop" && input2 == "game") { };
-		else { this->comfortCommands(input1, input2); }
+		else if (input1 == "stop" && input2 == "game") { }
+		else if (this->comfortCommands(input1, input2)) { this->comfortCat(); }
 	}
 };
 

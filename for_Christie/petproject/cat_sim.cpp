@@ -37,6 +37,7 @@ int main()
 	// if cat of the same name has been made before, the load file for that cat is opened
 	if (load(cat)) {
 		display_cat(cat);
+		cout << endl;
 	}
 	
 	do {		
@@ -52,7 +53,7 @@ int main()
 		
 		cat.iterateHunger(true);
 		cat.iterateComfort(true);
-	} while (userInput1 != "stop" && userInput1 != "Stop");
+	} while (userInput1 != "stop");
 		
 	// once the user decides to stop playing, the cat is saved to their specific file 
 	// this overwrites any previous information about the cat of the same name
