@@ -11,7 +11,6 @@
 */
 
 #include "Feline.h"
-#include <fstream>
 using namespace std;
 
 // FUNCTION INITIALIZATIONS INITIALIZATION

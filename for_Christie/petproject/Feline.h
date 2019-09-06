@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "Feed.h"
 using namespace std;
 
@@ -140,6 +141,50 @@ public:
 		else if (input1 == "stop" && input2 == "game") { }
 		else if (this->comfortCommands(input1, input2)) { this->comfortCat(); }
 	}
+	
+	/*
+	bool save(Feline& save_cat) {
+		ofstream fout;
+		
+		fout.open((save_cat.getName() + ".txt"), ios::ate);
+		
+		if (!fout.is_open()) {
+			cout << endl << "ERROR: Something is wrong with the save file." << endl;
+			return false;
+		}
+		
+		fout << save_cat.getName() << " ";
+		fout << save_cat.getHungerCount() << " ";
+		fout << save_cat.getComfortCount() << " ";
+		
+		fout.close();
+		
+		return true;
+	}
+
+	bool load(Feline& load_cat) {
+		ifstream fin;
+		string temp_name;
+		int temp_hungerCount, temp_comfortCount;
+		
+		fin.open((load_cat.getName() + ".txt"));
+		
+		if (!fin.is_open()) {  // if there is no file for the named cat, one is made
+			cout << "There is no load file on record for that cat name." << endl;
+			cout << "Your cat is being born now..." << endl;
+			return false;
+		}
+		
+		fin >> temp_name >> temp_hungerCount >> temp_comfortCount;
+		fin.close();
+		
+		load_cat.setName(temp_name);
+		load_cat.setHungerCount(temp_hungerCount);
+		load_cat.setComfortCount(temp_comfortCount);
+		
+		return true;
+	}
+	*/
 };
 
 
