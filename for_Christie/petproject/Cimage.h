@@ -49,18 +49,25 @@ private:
 		cout << "   / (_..-' // (< _     ;_..__               ; `' / /// " << endl;
 		cout << "    / // // //  `-._,_)' // / ``--...____..-' /// / // " << endl;
 	}
+	void type6() {
+		cout << "   ____ " << endl;
+		cout << "  (.   \\ " << endl;
+		cout << "    \\  | " << endl;
+		cout << "     \\ |___(\\--/) " << endl;
+		cout << "   __/    (  . . ) " << endl;
+		cout << "  \"'._.    '-.O.' " << endl;
+		cout << "       '-.  \\ \"|\\ " << endl;
+		cout << "          '.,,/'.,,mrf " << endl;
+	}
 	
 public:
 	void setImageNum(int temp_num) { image_num = temp_num; }
 	void display_image(){
-		if (image_num == 1) { this->type5(); }
+		if (image_num == 1) { this->type1(); }
+		else if (image_num == 2) { this->type2(); }
+		else if (image_num == 3) { this->type3(); }
+		else if (image_num == 4) { this->type4(); }
+		else if (image_num == 5) { this->type5(); }
+		else if (image_num == 6) { this->type6(); }
 	}
-};
-
-/*
-              __..--''``---....___   _..._    __
-    /// //_.-'    .-/";  `        ``<._  ``.''_ `. / // /
-   ///_.-' _..--.'_    \                    `( ) ) // //
-   / (_..-' // (< _     ;_..__               ; `' / ///
-    / // // //  `-._,_)' // / ``--...____..-' /// / // 
-*/
+};]
