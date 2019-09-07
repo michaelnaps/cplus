@@ -21,6 +21,7 @@ private:
 	string comfort_level;
 	int comfort_count;
 	Cimage cat_image;
+	int image_num;
 		
 	void feedCat() {
 		if (((hunger_count - 3) >= 0)) { 
@@ -81,10 +82,22 @@ public:
 	
 	// ITERATE CAT STATS FUNCTIONS
 	void iterateHunger(bool iterate_TF) {
-		if (hunger_count >= 0 && hunger_count <= 3) { hunger_level = "Full"; }
-		else if (hunger_count > 3 && hunger_count <= 6) { hunger_level = "A little hungry"; }
-		else if (hunger_count > 6 && hunger_count <= 10) { hunger_level = "Hungry"; }
-		else if (hunger_count > 10) { hunger_level = "Starving"; }
+		if (hunger_count >= 0 && hunger_count <= 3) { 
+			hunger_level = "Full"; 
+			image_num = 6;
+		}
+		else if (hunger_count > 3 && hunger_count <= 6) { 
+			hunger_level = "A little hungry";
+			image_num = 5;
+		}
+		else if (hunger_count > 6 && hunger_count <= 10) { 
+			hunger_level = "Hungry"; 
+			image_num = 2;
+		}
+		else if (hunger_count > 10) { 
+			hunger_level = "Starving"; 
+			image_num = 1;
+		}
 		else {
 			cout << "hunger_count = " << hunger_count << endl;
 			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
@@ -112,12 +125,12 @@ public:
 	}
 	
 	void display_feline() {
-		cat_image.setImageNum(1);
+		cat_image.setImageNum(image_num);
 		cat_image.display_image();
 	}
 	
 	// KILL CAT FUNCTION	
-	// erases load function for teh named cat
+	// erases load file for the named cat
 	bool killcat() {
 		string filename(name + ".txt");
 		remove(filename.c_str());
@@ -127,7 +140,9 @@ public:
 		comfort_level = "";
 		hunger_count = 0;
 		comfort_count = 0;
-		cout << endl << "Your cat has died, probably due to neglect." << endl;
+		image_num = 3;
+		this->display_feline();
+		cout << "Your cat has died, probably due to neglect." << endl;
 		cout << "Maybe by choice." << endl << endl;
 		
 		return false;
@@ -139,7 +154,10 @@ public:
 			if (temp_food.setFoodType(input2)) { this->feedCat(); }
 		}
 		else if (input1 == "buy" && input2 == "cat") { this->nameYourCat(); }
-		else if (input1 == "kill" && input2 == name) { this->killcat(); }
+		else if (input1 == "kill" && input2 == name) { 
+			this->killcat(); 
+			return false;
+		}
 		else if (this->comfortCommands(input1, input2)) { this->comfortCat(); }		
 		else if (input1 == "stop" && input2 == "game") { return false; }
 		

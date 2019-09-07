@@ -15,11 +15,11 @@ private:
 	
 	void type1() {
 		cout << "  /\\___/\\ " << endl;
-		cout << " ( o   o )" << endl;
-		cout << " (  =^=  )" << endl;
-		cout << " (        )" << endl;
-		cout << " (         )" << endl;
-		cout << " (          )))))))))))" << endl;
+		cout << " ( o   o ) " << endl;
+		cout << " (  =^=  ) " << endl;
+		cout << " (        ) " << endl;
+		cout << " (         ) " << endl;
+		cout << " (          ))))))))))) " << endl;
 	}
 	void type2() {
 		cout << " ((      /|_/| " << endl;
@@ -27,7 +27,7 @@ private:
 		cout << "  /\\ | '.__ v / " << endl;
 		cout << " (_ .   /   \"    " << endl;
 		cout << "  ) _)._  _ / " << endl;
-		cout << " '.\\ \\|( / ( mrf" << endl;
+		cout << " '.\\ \\|( / (  " << endl;
 		cout << "   '' ''\\\\ \\\\ " << endl;
 	}
 	void type3() {
@@ -57,7 +57,7 @@ private:
 		cout << "   __/    (  . . ) " << endl;
 		cout << "  \"'._.    '-.O.' " << endl;
 		cout << "       '-.  \\ \"|\\ " << endl;
-		cout << "          '.,,/'.,,mrf " << endl;
+		cout << "          '.,,/'.,, " << endl;
 	}
 	
 public:
@@ -70,4 +70,4 @@ public:
 		else if (image_num == 5) { this->type5(); }
 		else if (image_num == 6) { this->type6(); }
 	}
-};]
+};

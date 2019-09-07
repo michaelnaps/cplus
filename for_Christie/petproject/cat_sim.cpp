@@ -45,7 +45,7 @@ int main()
 		
 		cat.iterateHunger(true);
 		cat.iterateComfort(true);
-	} while (userInput1 != "stop");
+	} while (userInput1 != "stop" && userInput2 != "game");
 		
 	// once the user decides to stop playing, the cat is saved to their specific file 
 	// this overwrites any previous information about the cat of the same name
