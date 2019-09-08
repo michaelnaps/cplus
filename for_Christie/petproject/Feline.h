@@ -8,44 +8,48 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include "Feed.h"
-#include "Cimage.h"
+#include "Feed.h"  // class type made specifically to check feed commands
+#include "Cimage.h"  // class type made specifically to output ASCII cat images
 using namespace std;
 
 class Feline
 {
 private:
-	string name;
-	string hunger_level;
-	int hunger_count;
-	string comfort_level;
-	int comfort_count;
-	Cimage cat_image;
-	int image_num;
-		
+	string name;  // name of cat
+	string hunger_level;  // hunger level title for cat
+	int hunger_count;  // hunger level tracking integer
+	string comfort_level;  // comfort level title for cat
+	int comfort_count;  // comfort level tracking integer
+	Cimage cat_image;  // image variable for ASCII cat
+	int image_num;  // integer used to select which cat image to display
+	
+	// class function for feeding simulated cat (private)
 	void feedCat() {
-		if (((hunger_count - 3) >= 0)) { 
-			hunger_count -= 3;
-			this->iterateHunger(false);
+		if (((hunger_count - 3) >= 0)) { // if the hunger tracking intger is above 3
+			hunger_count -= 3;  // the 'hunger_count' is updated to reflect the cat being fed
+			this->iterateHunger(false);  // updates the 'hunger_level' variable
 		}
-		else { 
+		else {  // otherwise make 'hunger_count' equal to 0, this way the variable can never be negative
 			hunger_count = 0; 
 			this->iterateHunger(false);
 		}
-		cout << "The cat accepts this meal." << endl;
+		cout << "The cat accepts this meal." << endl;  // output that the cat accepts
 	}
+	// class function for comforting simulated cat (private)
 	void comfortCat() {
-		if (((comfort_count - 2) >= 0)) { 
-			comfort_count -= 3; 
-			this->iterateComfort(false);
+		if (((comfort_count - 3) >= 0)) {  // if the comfort tracking integer is above 3
+			comfort_count -= 3;  // the 'comfort_count' is updated to reflect being comforted
+			this->iterateComfort(false);  // update the 'comfort_level' variable
 		}
-		else { 
+		else {  // otherwise make 'comfort_count' equal to 0, this way the variable can never be negative
 			comfort_count = 0;
 			this->iterateComfort(false);
 		}
-		cout << "The cat enjoys your affection." << endl;
+		cout << "The cat enjoys your affection." << endl;  // output that the cat accepts
 	}
 	
+	// class type helper function that evaluates comfort commands given by the user (private)
+	// if any condition is true based on the user inputted commands, the function returns true, otherwise returns false
 	bool comfortCommands(string& input1, string& input2) {
 		if (input1 == "pet" && input2 == name) { return true; }
 		else if (input1 == "cuddle" && input2 == name) { return true; }			
@@ -55,20 +59,20 @@ private:
 	}
 	
 public:
-	Feline() : hunger_count(0), comfort_count(0)
+	Feline() : hunger_count(0), comfort_count(0)  // 'hunger_count' and 'comfort_count' are intialized at 0
 	{ }
 
 	// FUNCTION THAT BEGINS SIM
-	void nameYourCat() { 		
+	void nameYourCat() {  // class type function that names the cat		
 		cout << "Enter the name of your cat: ";
 		cin >> name;
 	}
 	
 	// 'set' CLASS TYPE FUNCTIONS
-	void setName(string temp_name) { name = temp_name; }
+	void setName(string temp_name) { name = temp_name; }  // class type functions that names the cat
 	
 	// 'get' CLASS TYPE FUNCTIONS
-	string getName() { return name; }
+	string getName() { return name; }  // 
 	string getHungerStatus() {
 		this->iterateHunger(false);
 		return hunger_level; 

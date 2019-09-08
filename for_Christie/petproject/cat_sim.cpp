@@ -1,6 +1,6 @@
 // File: cat_sim.cpp
 // Created on: 8/27/2019
-// Last modified on:
+// Last modified on: 9/8/2019
 
 // Created by: Michael Napoli
 // Created for: Christie Bradley
@@ -18,13 +18,13 @@ void display_cat(Feline& disp_cat);
 
 int main()
 {
-	Feline cat;
-	string temp_name;
-	string userInput1, userInput2;
+	Feline cat;  // cat variable for controlling the simulated cat
+	string temp_name;  // temporary name used to initiate cat sim.
+	string userInput1, userInput2;  // user inputted commands for the cat
 	
 	cout << "What is your cat's name? ";  // ask user for the name of their cat
 	cin >> temp_name;
-	cat.setName(temp_name);
+	cat.setName(temp_name);  // apply temporary name to Feline class type variable
 	
 	// if cat of the same name has been made before, the load file for that cat is opened
 	if (cat.load()) {
@@ -33,35 +33,36 @@ int main()
 	}
 	
 	do {		
-		userInput1.clear();
+		userInput1.clear();  // user inputted commands are cleared on every iteration of the do-while loop
 		userInput2.clear();
 		
-		cout << "What would you like to do? ";
+		cout << "What would you like to do? ";  // ask user for their commands
 		cin >> userInput1 >> userInput2;
 		
+		// run commands, if the command returns false, loop is exited
 		if (!cat.run_command(userInput1, userInput2)) { break; }
 		display_cat(cat);
 		cout << endl;
 		
-		cat.iterateHunger(true);
-		cat.iterateComfort(true);
-	} while (userInput1 != "stop" && userInput2 != "game");
+		cat.iterateHunger(true);  // iterate the cat's hunger variables on every loop
+		cat.iterateComfort(true);  // iterate cat's comfort variables
+	} while (userInput1 != "stop" && userInput2 != "game");  // when user enters 'stop game' the loop is exited
 		
 	// once the user decides to stop playing, the cat is saved to their specific file 
 	// this overwrites any previous information about the cat of the same name
-	if (cat.getName().length() != 0) { 
+	if (cat.getName().length() != 0) {  // if cat name is longer than 0, the cat is saved
 		if (cat.save()) { cout << cat.getName() << " was saved successfully." << endl; }
-		else { cout << "Your cat was not saved." << endl; }
+		else { cout << "Your cat was not saved." << endl; }  // if the cat is not saved successfully, ouputs error code
 	}
 
 	return 0;
 }
 
-// 'display_cat()' FUNCTION INITIALIZATION
+// FUNCTION DEFINITION: 'display_cat()'
 void display_cat(Feline& disp_cat) {
-	cout << "Your cat's name is " << disp_cat.getName() << endl;
-	cout << "Hunger: " << disp_cat.getHungerStatus() << endl;
-	cout << "Comfort: " << disp_cat.getComfortStatus() << endl << endl;
-	disp_cat.display_feline();
+	cout << "Your cat's name is " << disp_cat.getName() << endl;  // display cat name
+	cout << "Hunger: " << disp_cat.getHungerStatus() << endl;  // display cat's hunger level
+	cout << "Comfort: " << disp_cat.getComfortStatus() << endl << endl;  // display cat's comfort level
+	disp_cat.display_feline();  // display command prompt capable image of cat
 	cout << endl;
 }
