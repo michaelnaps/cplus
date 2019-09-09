@@ -44,9 +44,11 @@ int main()
 		display_cat(cat);
 		cout << endl;
 		
-		cat.iterateHunger(true);  // iterate the cat's hunger variables on every loop
-		cat.iterateComfort(true);  // iterate cat's comfort variables
-	} while (userInput1 != "stop" && userInput2 != "game");  // when user enters 'stop game' the loop is exited
+		if (cat.getName.length() != 0) {
+			cat.iterateHunger(true);  // iterate the cat's hunger variables on every loop
+			cat.iterateComfort(true);  // iterate cat's comfort variables
+		}
+	} while (cat.getName.length() != 0);  // when user enters 'stop game' the loop is exited
 		
 	// once the user decides to stop playing, the cat is saved to their specific file 
 	// this overwrites any previous information about the cat of the same name

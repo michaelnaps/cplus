@@ -72,62 +72,69 @@ public:
 	void setName(string temp_name) { name = temp_name; }  // class type functions that names the cat
 	
 	// 'get' CLASS TYPE FUNCTIONS
-	string getName() { return name; }  // 
-	string getHungerStatus() {
-		this->iterateHunger(false);
-		return hunger_level; 
+	string getName() { return name; }  // returns the current cat's name
+	string getHungerStatus() {  // returns the hunger status title of the cat
+		this->iterateHunger(false);  // updates the hunger status without iterating the hunger feature
+		return hunger_level;
 	}
-	string getComfortStatus() {
-		this->iterateComfort(false);
-		return comfort_level; 
+	string getComfortStatus() {  // returns the comfort status title of the cat
+		this->iterateComfort(false);  // updates the comfort status title without iterating 'comfort_count'
+		return comfort_level;
 	}
-	int getHungerCount() { return hunger_count; }
-	int getComfortCount() { return comfort_count; }
 	
 	// ITERATE CAT STATS FUNCTIONS
+	// class function that iterates the hunger status of the simulated cat
+	// if 'true' is entered into the function call, the 'hunger_count' variable will be updated
+	// otherwise the function will evaluate the 'hunger_count' variable in order to update the hunger status title
+	// also updates the image of the cat depending on the hunger level
 	void iterateHunger(bool iterate_TF) {
-		if (hunger_count >= 0 && hunger_count <= 3) { 
+		if (hunger_count >= 0 && hunger_count <= 3) {  // if 'hunger_count' is between 0 and 3 the cat is "Full"
 			hunger_level = "Full"; 
 			image_num = 6;
 		}
-		else if (hunger_count > 3 && hunger_count <= 6) { 
+		else if (hunger_count > 3 && hunger_count <= 6) {  // 4-6 the cat is "A little hungry"
 			hunger_level = "A little hungry";
 			image_num = 5;
 		}
-		else if (hunger_count > 6 && hunger_count <= 10) { 
+		else if (hunger_count > 6 && hunger_count <= 10) {  // 7-10 the cat is "Hungry"
 			hunger_level = "Hungry"; 
 			image_num = 2;
 		}
-		else if (hunger_count > 10) { 
+		else if (hunger_count > 10) {  // 10 and above the cat is "Starving"
 			hunger_level = "Starving"; 
 			image_num = 1;
 		}
-		else {
+		else {  // if these parameters are not met there is something wrong with the 'hunger_count' variable
 			cout << "hunger_count = " << hunger_count << endl;
 			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
 		}
 		
-		if (hunger_count > 16) { this->killcat(); }
+		if (hunger_count > 16) { this->killcat(); }  // if the cat's hunger level is above 16 it dies of hunger
 		
-		if (iterate_TF) { ++hunger_count; }
+		if (iterate_TF) { ++hunger_count; }  // iterate 'hunger_count' command
 	}
+	
+	// class function that iterates the comfort status of the simulated cat
+	// if 'true' is entered into the function call, the 'comfort_count' variable will be updated
+	// otherwise the function will evaluate the 'comfort_count' variable in order to update the comfort status title
 	void iterateComfort(bool iterate_TF) {		
-		if (comfort_count >= 0 && comfort_count <= 3) { comfort_level = "Happy"; }
-		else if (comfort_count > 3 && comfort_count <= 6) { comfort_level = "Satisfied"; }
-		else if (comfort_count > 6 && comfort_count <= 9) { comfort_level = "Bored"; }
-		else if (comfort_count > 9 && comfort_count <= 12) { comfort_level = "Bored and Tired"; }
-		else if (comfort_count > 12 && comfort_count <= 15) { comfort_level = "Sad"; }
-		else if (comfort_count > 15) { comfort_level = "Depressed"; }
-		else { 
+		if (comfort_count >= 0 && comfort_count <= 3) { comfort_level = "Happy"; }  // 0-3 the cat is "Happy"
+		else if (comfort_count > 3 && comfort_count <= 6) { comfort_level = "Satisfied"; }  // 4-6 the cat is "Satisfied"
+		else if (comfort_count > 6 && comfort_count <= 9) { comfort_level = "Bored"; }  // 7-9 the cat is "Bored"
+		else if (comfort_count > 9 && comfort_count <= 12) { comfort_level = "Bored and Tired"; }  // 10-12 the cat is "Bored and Tired"
+		else if (comfort_count > 12 && comfort_count <= 15) { comfort_level = "Sad"; }  // 13-15 the cat is "Sad"
+		else if (comfort_count > 15) { comfort_level = "Depressed"; }  // 15 and above the cat is "Depressed"
+		else {  // if these parameters are not met the function outputs an error
 			cout << "comfort_count = " << comfort_count << endl;
 			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
 		}
 		
-		if (comfort_count > 20) { this->killcat(); }
+		if (comfort_count > 20) { this->killcat(); }  // if the comfort integer get to 20 the cat dies of depression
 		
-		if (iterate_TF) { ++comfort_count; }
+		if (iterate_TF) { ++comfort_count; }  // iterate 'comfort_count' command
 	}
 	
+	// class function that displays the designated image of the cat
 	void display_feline() {
 		cat_image.setImageNum(image_num);
 		cat_image.display_image();
@@ -135,21 +142,21 @@ public:
 	
 	// KILL CAT FUNCTION	
 	// erases load file for the named cat
-	bool killcat() {
+	void killcat() {
 		string filename(name + ".txt");
-		remove(filename.c_str());
+		remove(filename.c_str());  // deletes the cat load data is applicable
 		
-		name = "";
-		hunger_level = "";
-		comfort_level = "";
+		name.clear();
+		hunger_level.clear();
+		comfort_level.clear();
 		hunger_count = 0;
 		comfort_count = 0;
 		image_num = 3;
+		
+		// show deceased cat
 		this->display_feline();
 		cout << "Your cat has died, probably due to neglect." << endl;
 		cout << "Maybe by choice." << endl << endl;
-		
-		return false;
 	}
 
 	bool run_command(string& input1, string& input2) {
