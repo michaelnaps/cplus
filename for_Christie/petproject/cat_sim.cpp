@@ -30,7 +30,6 @@ int main()
 	// if cat of the same name has been made before, the load file for that cat is opened
 	if (cat.load()) {
 		display_cat(cat);
-		cout << endl;
 	}
 	
 	do {		
@@ -44,8 +43,7 @@ int main()
 		if (!cat.run_command(userInput1, userInput2)) { break; }
 		
 		if (cat.getName().length() != 0) {
-			display_cat(cat);
-			cout << endl;
+			display_cat(cat); cout << endl;
 		}		
 	} while (cat.getName().length() != 0);  // when user enters 'stop game' the loop is exited
 		
@@ -56,7 +54,7 @@ int main()
 		else { cout << "Your cat was not saved." << endl; }  // if the cat is not saved successfully, ouputs error code
 	}
 	
-	cout << "Press ENTER to close... ";
+	cout << endl << "Press ENTER to close... ";
 	getline(cin, close_input);
 	cin.ignore();
 

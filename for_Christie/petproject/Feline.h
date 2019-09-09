@@ -225,7 +225,11 @@ public:
 		}
 		
 		fin >> name >> hunger_count >> comfort_count;
+		
 		fin.close();
+		
+		this->iterateHunger(false);
+		this->iterateComfort(false);
 		
 		return true;
 	}
