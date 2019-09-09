@@ -74,11 +74,9 @@ public:
 	// 'get' CLASS TYPE FUNCTIONS
 	string getName() { return name; }  // returns the current cat's name
 	string getHungerStatus() {  // returns the hunger status title of the cat
-		this->iterateHunger(false);  // updates the hunger status without iterating the hunger feature
 		return hunger_level;
 	}
 	string getComfortStatus() {  // returns the comfort status title of the cat
-		this->iterateComfort(false);  // updates the comfort status title without iterating 'comfort_count'
 		return comfort_level;
 	}
 	
@@ -109,7 +107,11 @@ public:
 			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
 		}
 		
-		if (hunger_count > 16) { this->killcat(); }  // if the cat's hunger level is above 16 it dies of hunger
+		// if the cat's hunger level is above 16 it dies of hunger
+		if (hunger_count > 16) { 
+			this->killcat();
+			iterate_TF = false;			
+		}
 		
 		if (iterate_TF) { ++hunger_count; }  // iterate 'hunger_count' command
 	}
@@ -129,12 +131,16 @@ public:
 			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
 		}
 		
-		if (comfort_count > 20) { this->killcat(); }  // if the comfort integer get to 20 the cat dies of depression
+		// if the comfort integer get to 20 the cat dies of depression
+		if (comfort_count > 20) { 
+			this->killcat();
+			iterate_TF = false;
+		}
 		
 		if (iterate_TF) { ++comfort_count; }  // iterate 'comfort_count' command
 	}
 	
-	// class function that displays the designated image of the cat
+	// class function that displays the designated image of the simulated cat
 	void display_feline() {
 		cat_image.setImageNum(image_num);
 		cat_image.display_image();
@@ -142,7 +148,7 @@ public:
 	
 	// KILL CAT FUNCTION	
 	// erases load file for the named cat
-	void killcat() {
+	bool killcat() {
 		string filename(name + ".txt");
 		remove(filename.c_str());  // deletes the cat load data is applicable
 		
@@ -157,20 +163,31 @@ public:
 		this->display_feline();
 		cout << "Your cat has died, probably due to neglect." << endl;
 		cout << "Maybe by choice." << endl << endl;
+		
+		return false;
 	}
 
 	bool run_command(string& input1, string& input2) {
-		if (input1 == "feed" || input1 == "Feed") {
+		if (input1 == "feed") {
 			Feed temp_food;
-			if (temp_food.setFoodType(input2)) { this->feedCat(); }
+			if (temp_food.setFoodType(input2)) { 
+				this->feedCat();
+				return true;
+			}
 		}
 		else if (input1 == "buy" && input2 == "cat") { this->nameYourCat(); }
 		else if (input1 == "kill" && input2 == name) { 
 			this->killcat(); 
 			return false;
 		}
-		else if (this->comfortCommands(input1, input2)) { this->comfortCat(); }		
+		else if (this->comfortCommands(input1, input2)) { 
+			this->comfortCat(); 
+			return true;
+		}		
 		else if (input1 == "stop" && input2 == "game") { return false; }
+		
+		this->iterateHunger(true);  // iterate the cat's hunger variables on every loop (iterate = true)
+		this->iterateComfort(true);  // iterate cat's comfort variables (iterate = true)
 		
 		return true;
 	}
