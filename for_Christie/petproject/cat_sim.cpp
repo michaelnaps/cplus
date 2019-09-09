@@ -21,6 +21,7 @@ int main()
 	Feline cat;  // cat variable for controlling the simulated cat
 	string temp_name;  // temporary name used to initiate cat sim.
 	string userInput1, userInput2;  // user inputted commands for the cat
+	string close_input;
 	
 	cout << "What is your cat's name? ";  // ask user for the name of their cat
 	cin >> temp_name;
@@ -54,6 +55,10 @@ int main()
 		if (cat.save()) { cout << cat.getName() << " was saved successfully." << endl; }
 		else { cout << "Your cat was not saved." << endl; }  // if the cat is not saved successfully, ouputs error code
 	}
+	
+	cout << "Press ENTER to close... ";
+	getline(cin, close_input);
+	cin.ignore();
 
 	return 0;
 }
