@@ -6,6 +6,7 @@
 /* Class type variable that holds the informations regarding a simulated cat. */
 
 #include <iostream>
+#include <ctime>
 #include <string>
 #include <fstream>
 #include "Feed.h"  // class type made specifically to check feed commands
