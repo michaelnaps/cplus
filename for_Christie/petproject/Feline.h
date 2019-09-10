@@ -62,12 +62,6 @@ private:
 public:
 	Feline() : hunger_count(0), comfort_count(0)  // 'hunger_count' and 'comfort_count' are intialized at 0
 	{ }
-
-	// FUNCTION THAT BEGINS SIM
-	void nameYourCat() {  // class type function that names the cat		
-		cout << "Enter the name of your cat: ";
-		cin >> name;
-	}
 	
 	// 'set' CLASS TYPE FUNCTIONS
 	void setName(string temp_name) { name = temp_name; }  // class type functions that names the cat
@@ -176,7 +170,6 @@ public:
 				return true;
 			}
 		}
-		else if (input1 == "buy" && input2 == "cat") { this->nameYourCat(); }
 		else if (input1 == "kill" && input2 == name) { 
 			this->killcat(); 
 			return false;
@@ -222,10 +215,21 @@ public:
 		if (!fin.is_open()) {
 			cout << "There is no load file on record for that cat name." << endl;
 			cout << "Your cat is being born now..." << endl;
+			
+			image_num = 4;
+			
+			cout << endl;
+			this->display_feline();
+			cout << endl;
+			
+			hunger_count = 0; 
+			this->iterateHunger(false);
+			comfort_count = 0;
+			this->iterateComfort(false);
+			
 			return false;
 		}
-		
-		fin >> name >> hunger_count >> comfort_count;
+		else { fin >> name >> hunger_count >> comfort_count; }
 		
 		fin.close();
 		
