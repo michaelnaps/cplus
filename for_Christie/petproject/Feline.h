@@ -82,6 +82,13 @@ private:
 		cout << "Maybe by choice." << endl << endl;
 	}
 	
+	// FINISH NECESSARY
+	// function that uses time to iterate the stats of the given cat save data
+	void time_huncomf(const time_t past_time) {
+		time_t current(time_t *time);
+		double elapsed(double difftime(time_t past_time, time_t current));
+	}
+	
 public:
 	Feline() : hunger_count(0), comfort_count(0)  // 'hunger_count' and 'comfort_count' are intialized at 0
 	{ }
@@ -200,6 +207,7 @@ public:
 	// 'save' function writes the appropriate data to a save file under the cat's name for later use
 	bool save() {
 		ofstream fout;  // stream variable used to open the correct file
+		time_t current_time(time_t *time);  // used to save the time the game was ended
 		
 		fout.open((name + ".txt"), ios::ate);  // '.txt' is added to the end of the file name to place it in the correct format
 		
@@ -208,10 +216,11 @@ public:
 			return false;  // return false
 		}
 		
-		// if file does open
+		// if file does open:
 		fout << name << " ";  // ouput the 'name' of the cat to the file
 		fout << hunger_count << " ";  // ouput the hunger integer value of the cat
 		fout << comfort_count << " ";  // output the comfort integer value of the cat
+		fout << current_time << " ";  // output to the file the time the game period was ended
 		
 		fout.close();  // close the cat text file
 		
