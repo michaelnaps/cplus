@@ -155,7 +155,9 @@ public:
 		image_num = 3;
 		
 		// show deceased cat
+		cout << endl;
 		this->display_feline();
+		cout << endl;
 		cout << "Your cat has died, probably due to neglect." << endl;
 		cout << "Maybe by choice." << endl << endl;
 		
