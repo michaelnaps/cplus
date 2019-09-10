@@ -1,7 +1,7 @@
 // File: Feline.h
 // Created by: Michael Napoli
 // Created on: 8/27/2019
-// Last modified on:
+// Last modified on: 9/10/2019
 
 /* Class type variable that holds the informations regarding a simulated cat. */
 
@@ -59,6 +59,29 @@ private:
 		else { return false; }
 	}
 	
+	// KILL CAT FUNCTION	(private)
+	// erases load file for the named cat
+	void killcat() {
+		string filename(name + ".txt");  // creates string variable for the filename of the cat's save data
+		remove(filename.c_str());  // deletes the cat save data is applicable
+		
+		name.clear();  // clears name variable
+		hunger_level.clear();  // clears hunger title variable
+		comfort_level.clear();  // clears comfort title variable
+		hunger_count = 0;  // resets 'hunger_count'
+		comfort_count = 0;  // resets 'comfort_count'
+		image_num = 3;  // sets cat image to the designated dead cat image
+		
+		// show deceased cat
+		cout << endl;
+		this->display_feline();
+		cout << endl;
+		
+		// tell user what happened if they don't already know
+		cout << "Your cat has died, probably due to neglect." << endl;
+		cout << "Maybe by choice." << endl << endl;
+	}
+	
 public:
 	Feline() : hunger_count(0), comfort_count(0)  // 'hunger_count' and 'comfort_count' are intialized at 0
 	{ }
@@ -80,7 +103,7 @@ public:
 	// if 'true' is entered into the function call, the 'hunger_count' variable will be updated
 	// otherwise the function will evaluate the 'hunger_count' variable in order to update the hunger status title
 	// also updates the image of the cat depending on the hunger level
-	void iterateHunger(bool iterate_TF) {
+	void iterateHunger(bool iterate_h) {
 		if (hunger_count >= 0 && hunger_count <= 3) {  // if 'hunger_count' is between 0 and 3 the cat is "Full"
 			hunger_level = "Full"; 
 			image_num = 6;
@@ -102,19 +125,19 @@ public:
 			cout << "ERROR: There is something wrong with the simulation's hunger features." << endl; 
 		}
 		
-		// if the cat's hunger level is above 16 it dies of hunger
+		// if the cat's 'hunger_count' variable is above 16 it dies of hunger
 		if (hunger_count > 16) { 
 			this->killcat();
-			iterate_TF = false;			
+			iterate_h = false;			
 		}
 		
-		if (iterate_TF) { ++hunger_count; }  // iterate 'hunger_count' command
+		if (iterate_h) { ++hunger_count; }  // iterate 'hunger_count' command
 	}
 	
 	// class function that iterates the comfort status of the simulated cat
 	// if 'true' is entered into the function call, the 'comfort_count' variable will be updated
 	// otherwise the function will evaluate the 'comfort_count' variable in order to update the comfort status title
-	void iterateComfort(bool iterate_TF) {		
+	void iterateComfort(bool iterate_c) {		
 		if (comfort_count >= 0 && comfort_count <= 3) { comfort_level = "Happy"; }  // 0-3 the cat is "Happy"
 		else if (comfort_count > 3 && comfort_count <= 6) { comfort_level = "Satisfied"; }  // 4-6 the cat is "Satisfied"
 		else if (comfort_count > 6 && comfort_count <= 9) { comfort_level = "Bored"; }  // 7-9 the cat is "Bored"
@@ -129,10 +152,10 @@ public:
 		// if the comfort integer get to 20 the cat dies of depression
 		if (comfort_count > 20) { 
 			this->killcat();
-			iterate_TF = false;
+			iterate_c = false;
 		}
 		
-		if (iterate_TF) { ++comfort_count; }  // iterate 'comfort_count' command
+		if (iterate_c) { ++comfort_count; }  // iterate 'comfort_count' command
 	}
 	
 	// class function that displays the designated image of the simulated cat
@@ -140,45 +163,29 @@ public:
 		cat_image.setImageNum(image_num);
 		cat_image.display_image();
 	}
-	
-	// KILL CAT FUNCTION	
-	// erases load file for the named cat
-	bool killcat() {
-		string filename(name + ".txt");
-		remove(filename.c_str());  // deletes the cat load data is applicable
-		
-		name.clear();
-		hunger_level.clear();
-		comfort_level.clear();
-		hunger_count = 0;
-		comfort_count = 0;
-		image_num = 3;
-		
-		// show deceased cat
-		cout << endl;
-		this->display_feline();
-		cout << endl;
-		cout << "Your cat has died, probably due to neglect." << endl;
-		cout << "Maybe by choice." << endl << endl;
-		
-		return false;
-	}
 
+	// class function that runs user-inputted commands
+	// input1 - string variable containg first half of command
+	// input2 - string variable containing second half of command
+	// ALL COMMANDS COME IN TWO WORD PHRASES
 	bool run_command(string& input1, string& input2) {
+		// if the user's first input is "feed"
 		if (input1 == "feed") {
-			Feed temp_food;
-			if (temp_food.setFoodType(input2)) { 
-				this->feedCat();
-				return true;
+			Feed temp_food;  // a variable is made for the string 'input2'
+			if (temp_food.setFoodType(input2)) {  // it is checked via the 'Feed' class and if true 
+				this->feedCat();  // feeds the cat
+				return true;  // return true
 			}
 		}
+		// if the user would like to kill their cat: they enter "kill catName"
 		else if (input1 == "kill" && input2 == name) { 
-			this->killcat(); 
-			return false;
+			this->killcat();
+			return false;  // return false
 		}
+		// the 'comfortCommands' function checks the user's input for possible matches
 		else if (this->comfortCommands(input1, input2)) { 
-			this->comfortCat(); 
-			return true;
+			this->comfortCat();  // if their command works, comfort the cat
+			return true;  // returns true
 		}		
 		else if (input1 == "stop" && input2 == "game") { return false; }
 		
@@ -189,56 +196,63 @@ public:
 	}
 	
 	// CAT SAVE/LOAD FUNCTIONS
+	
+	// 'save' function writes the appropriate data to a save file under the cat's name for later use
 	bool save() {
-		ofstream fout;
+		ofstream fout;  // stream variable used to open the correct file
 		
-		fout.open((name + ".txt"), ios::ate);
+		fout.open((name + ".txt"), ios::ate);  // '.txt' is added to the end of the file name to place it in the correct format
 		
-		if (!fout.is_open()) {
+		if (!fout.is_open()) {  // if the file does not open, returns ERROR statement
 			cout << endl << "ERROR: Something is wrong with the save file." << endl;
-			return false;
+			return false;  // return false
 		}
 		
-		fout << name << " ";
-		fout << hunger_count << " ";
-		fout << comfort_count << " ";
+		// if file does open
+		fout << name << " ";  // ouput the 'name' of the cat to the file
+		fout << hunger_count << " ";  // ouput the hunger integer value of the cat
+		fout << comfort_count << " ";  // output the comfort integer value of the cat
 		
-		fout.close();
+		fout.close();  // close the cat text file
 		
-		return true;
+		return true;  // return true
 	}
 
+	// 'load' function reads cat variable data into the appropriate places for use by the code
 	bool load() {
-		ifstream fin;
+		ifstream fin;  // stream variable used to open and read file
 		
-		fin.open((name + ".txt"));
+		fin.open((name + ".txt"));  // opens the file of the given cat name with ".txt" placed on the end
 		
 		// if there is no file for the named cat, one is made
 		if (!fin.is_open()) {
 			cout << "There is no load file on record for that cat name." << endl;
 			cout << "Your cat is being born now..." << endl;
 			
-			image_num = 4;
+			image_num = 4;  // cat image set to the new cat
 			
 			cout << endl;
-			this->display_feline();
+			this->display_feline();  // displays the new cat
 			cout << endl;
 			
+			// sets hunger and comfort variables
 			hunger_count = 0; 
 			this->iterateHunger(false);
 			comfort_count = 0;
 			this->iterateComfort(false);
 			
-			return false;
+			return false;  // return false
 		}
+		// otherwise the variable data for the cat is read in and applied appropriately
 		else { fin >> name >> hunger_count >> comfort_count; }
 		
-		fin.close();
+		fin.close();  // the file is closed
 		
+		// updates the hunger and comfort functions
 		this->iterateHunger(false);
 		this->iterateComfort(false);
 		
-		return true;
+		return true;  // return true
 	}
 };
 

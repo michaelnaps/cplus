@@ -1,7 +1,7 @@
 // File: Cimage.h
 // Created by: Michael Napoli
 // Created on: 9/6/2019
-// Last modified on: 
+// Last modified on: 9/7/2019
 
 /* Class type for command prompt capable images of cats. */
 

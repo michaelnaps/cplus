@@ -1,6 +1,6 @@
 // File: cat_sim.cpp
 // Created on: 8/27/2019
-// Last modified on: 9/8/2019
+// Last modified on: 9/10/2019
 
 // Created by: Michael Napoli
 // Created for: Christie Bradley
@@ -29,7 +29,7 @@ int main()
 	
 	// if cat of the same name has been made before, the load file for that cat is opened
 	if (cat.load()) {
-		display_cat(cat);
+		display_cat(cat);  // the cat is displayed
 	}
 	
 	do {		
@@ -54,6 +54,7 @@ int main()
 		else { cout << "Your cat was not saved." << endl; }  // if the cat is not saved successfully, ouputs error code
 	}
 	
+	// end program by hitting 'enter' on keyboard
 	cout << endl << "Press ENTER to close... ";
 	getline(cin, close_input);
 	cin.ignore();
