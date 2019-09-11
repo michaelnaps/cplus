@@ -82,30 +82,26 @@ private:
 		cout << "Maybe by choice." << endl << endl;
 	}
 	
-	// FINISH NECESSARY
-	// function that uses time to iterate the stats of the given cat save data
-	void time_huncomf(const time_t past_time) {
-		time_t current(time_t *time);
-		double elapsed(double difftime(time_t past_time, time_t current));
+	// function that uses time to iterate the stats of the given cat save data to "punish" long absence
+	// compares a saved time and the current time to calculate the cat's hunger and comfort values
+	void time_huncomf(const time_t& past_time) {
+		int iteration;  // used to iterate the hunger/comfort variables
+		time_t current(time(0));  // current time
+		double elapsed(difftime(current, past_time));  // elapsed time from this session and last session
+		
+		iteration = ((int)elapsed % 21600);  // cat loses one iteration in stats every six hours
+		
+		// the cat cannot die due to absence form the game
+		// if statements moderate the maximum integer the hunger and comfort variables can reach
+		if ((hunger_count + iteration) < 14) { hunger_count += iteration; }
+		else { hunger_count = 12; }
+		
+		if ((comfort_count + iteration) < 18) { comfort_count += iteration; }
+		else { comfort_count = 16; }
 	}
 	
-public:
-	Feline() : hunger_count(0), comfort_count(0)  // 'hunger_count' and 'comfort_count' are intialized at 0
-	{ }
+	// ITERATE CAT STATS FUNCTIONS (private)
 	
-	// 'set' CLASS TYPE FUNCTIONS
-	void setName(string temp_name) { name = temp_name; }  // class type functions that names the cat
-	
-	// 'get' CLASS TYPE FUNCTIONS
-	string getName() { return name; }  // returns the current cat's name
-	string getHungerStatus() {  // returns the hunger status title of the cat
-		return hunger_level;
-	}
-	string getComfortStatus() {  // returns the comfort status title of the cat
-		return comfort_level;
-	}
-	
-	// ITERATE CAT STATS FUNCTIONS
 	// class function that iterates the hunger status of the simulated cat
 	// if 'true' is entered into the function call, the 'hunger_count' variable will be updated
 	// otherwise the function will evaluate the 'hunger_count' variable in order to update the hunger status title
@@ -165,6 +161,22 @@ public:
 		if (iterate_c) { ++comfort_count; }  // iterate 'comfort_count' command
 	}
 	
+public:
+	Feline() : hunger_count(0), comfort_count(0)  // 'hunger_count' and 'comfort_count' are intialized at 0
+	{ }
+	
+	// 'set' CLASS TYPE FUNCTIONS
+	void setName(string temp_name) { name = temp_name; }  // class type functions that names the cat
+	
+	// 'get' CLASS TYPE FUNCTIONS
+	string getName() { return name; }  // returns the current cat's name
+	string getHungerStatus() {  // returns the hunger status title of the cat
+		return hunger_level;
+	}
+	string getComfortStatus() {  // returns the comfort status title of the cat
+		return comfort_level;
+	}
+	
 	// class function that displays the designated image of the simulated cat
 	void display_feline() {
 		cat_image.setImageNum(image_num);
@@ -207,7 +219,7 @@ public:
 	// 'save' function writes the appropriate data to a save file under the cat's name for later use
 	bool save() {
 		ofstream fout;  // stream variable used to open the correct file
-		time_t current_time(time_t *time);  // used to save the time the game was ended
+		time_t current_time(time(0));  // used to save the time the game was ended
 		
 		fout.open((name + ".txt"), ios::ate);  // '.txt' is added to the end of the file name to place it in the correct format
 		
@@ -230,6 +242,7 @@ public:
 	// 'load' function reads cat variable data into the appropriate places for use by the code
 	bool load() {
 		ifstream fin;  // stream variable used to open and read file
+		time_t last_play_time;
 		
 		fin.open((name + ".txt"));  // opens the file of the given cat name with ".txt" placed on the end
 		
@@ -253,7 +266,10 @@ public:
 			return false;  // return false
 		}
 		// otherwise the variable data for the cat is read in and applied appropriately
-		else { fin >> name >> hunger_count >> comfort_count; }
+		else { 
+			fin >> name >> hunger_count >> comfort_count >> last_play_time;
+			this->time_huncomf(last_play_time);  // iterate based on time gone from simulation
+		}
 		
 		fin.close();  // the file is closed
 		
