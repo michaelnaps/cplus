@@ -87,9 +87,9 @@ private:
 	void time_huncomf(const time_t& past_time) {
 		int iteration;  // used to iterate the hunger/comfort variables
 		time_t current(time(0));  // current time
-		double elapsed(difftime(current, past_time));  // elapsed time from this session and last session
+		int elapsed(difftime(current, past_time));  // elapsed time from this session and last session
 		
-		iteration = ((int)elapsed % 21600);  // cat loses one iteration in stats every six hours
+		iteration = (elapsed / 21600);  // cat loses one iteration in stats every six hours
 		
 		// the cat cannot die due to absence form the game
 		// if statements moderate the maximum integer the hunger and comfort variables can reach
