@@ -1,13 +1,15 @@
 // File: Feline.h
 // Created by: Michael Napoli
 // Created on: 8/27/2019
-// Last modified on: 9/10/2019
+// Last modified on: 9/11/2019
 
 /* Class type variable that holds the informations regarding a simulated cat. */
 
+#include <windows.h>
+
 #include <iostream>
-#include <ctime>
 #include <string>
+#include <ctime>
 #include <fstream>
 #include "Feed.h"  // class type made specifically to check feed commands
 #include "Cimage.h"  // class type made specifically to output ASCII cat images
@@ -21,12 +23,15 @@ private:
 	int hunger_count;  // hunger level tracking integer
 	string comfort_level;  // comfort level title for cat
 	int comfort_count;  // comfort level tracking integer
+	
+	// image class variables
 	Cimage cat_image;  // image variable for ASCII cat
 	int image_num;  // integer used to select which cat image to display
+	int color_num;  // integer representation of the color of the cat (automatically set to the basic concole text color)
 	
 	// class function for feeding simulated cat (private)
 	void feedCat() {
-		if (((hunger_count - 3) >= 0)) { // if the hunger tracking intger is above 3
+		if (((hunger_count - 3) >= 0)) {  // if the hunger tracking intger is above 3
 			hunger_count -= 3;  // the 'hunger_count' is updated to reflect the cat being fed
 			this->iterateHunger(false);  // updates the 'hunger_level' variable
 		}
@@ -71,6 +76,7 @@ private:
 		hunger_count = 0;  // resets 'hunger_count'
 		comfort_count = 0;  // resets 'comfort_count'
 		image_num = 3;  // sets cat image to the designated dead cat image
+		color_num = 7;  // set cat image color back to basic
 		
 		// show deceased cat
 		cout << endl;
@@ -161,8 +167,43 @@ private:
 		if (iterate_c) { ++comfort_count; }  // iterate 'comfort_count' command
 	}
 	
+	// class type function that changes the color of the outputted cat image
+	void colorCat() {
+		string temp_color;  // temporary value for cat color name
+		
+		// ask user what color they would like
+		cout << endl << "What color would you like " << name << " to be?" << endl;
+		
+		// show them their options
+		cout << "Your options include: " << endl;
+		cout << "basic" << endl;
+		cout << "green" << endl;
+		cout << "blue" << endl;
+		cout << "red" << endl;
+		cout << "brown" << endl;
+		cout << "grey" << endl;
+		cout << "orange" << endl;
+		cout << "purple" << endl;
+		cout << "yellow" << endl << endl;
+		
+		// user input color choice
+		cout << "Your choice: ";
+		cin >> temp_color;
+		
+		// convert their string color choice into the proper integer value of 'color_num'
+		if (temp_color == "green") { color_num = 2; }
+		else if (temp_color == "blue") { color_num = 3; }
+		else if (temp_color == "red") { color_num = 4; }
+		else if (temp_color == "orange") { color_num = 6; }
+		else if (temp_color == "basic") { color_num = 7; }
+		else if (temp_color == "grey") { color_num = 8; }
+		else if (temp_color == "purple") { color_num = 13; }
+		else if (temp_color == "yellow") { color_num = 14; }
+	}
+	
 public:
-	Feline() : hunger_count(0), comfort_count(0)  // 'hunger_count' and 'comfort_count' are intialized at 0
+	Feline() : hunger_count(0), comfort_count(0),  // 'hunger_count' and 'comfort_count' are intialized at 0
+	color_num(7)  // color of cat is initialized at the base window console text color
 	{ }
 	
 	// 'set' CLASS TYPE FUNCTIONS
@@ -179,7 +220,7 @@ public:
 	
 	// class function that displays the designated image of the simulated cat
 	void display_feline() {
-		cat_image.setImageNum(image_num);
+		cat_image.setImage(image_num, color_num);
 		cat_image.display_image();
 	}
 
@@ -188,25 +229,33 @@ public:
 	// input2 - string variable containing second half of command
 	// ALL COMMANDS COME IN TWO WORD PHRASES
 	bool run_command(string& input1, string& input2) {
+
+		if (input1 == "stop" && input2 == "game") { return false; }
+		
 		// if the user's first input is "feed"
-		if (input1 == "feed") {
+		else if (input1 == "feed") {
 			Feed temp_food;  // a variable is made for the string 'input2'
 			if (temp_food.setFoodType(input2)) {  // it is checked via the 'Feed' class and if true 
 				this->feedCat();  // feeds the cat
 				return true;  // return true
 			}
 		}
-		// if the user would like to kill their cat: they enter "kill catName"
-		else if (input1 == "kill" && input2 == name) { 
-			this->killcat();
-			return false;  // return false
-		}
+		
 		// the 'comfortCommands' function checks the user's input for possible matches
 		else if (this->comfortCommands(input1, input2)) { 
 			this->comfortCat();  // if their command works, comfort the cat
 			return true;  // returns true
 		}		
-		else if (input1 == "stop" && input2 == "game") { return false; }
+		
+		else if (input1 == "color" && input2 == name) {
+			this->colorCat();
+		}
+		
+		// if the user would like to kill their cat: they enter "kill catName"
+		else if (input1 == "kill" && input2 == name) { 
+			this->killcat();
+			return false;  // return false
+		}
 		
 		this->iterateHunger(true);  // iterate the cat's hunger variables on every loop (iterate = true)
 		this->iterateComfort(true);  // iterate cat's comfort variables (iterate = true)
@@ -233,6 +282,7 @@ public:
 		fout << hunger_count << " ";  // ouput the hunger integer value of the cat
 		fout << comfort_count << " ";  // output the comfort integer value of the cat
 		fout << current_time << " ";  // output to the file the time the game period was ended
+		fout << color_num << " ";
 		
 		fout.close();  // close the cat text file
 		
@@ -267,7 +317,7 @@ public:
 		}
 		// otherwise the variable data for the cat is read in and applied appropriately
 		else { 
-			fin >> name >> hunger_count >> comfort_count >> last_play_time;
+			fin >> name >> hunger_count >> comfort_count >> last_play_time >> color_num;
 			this->time_huncomf(last_play_time);  // iterate based on time gone from simulation
 		}
 		
