@@ -174,31 +174,37 @@ private:
 		// ask user what color they would like
 		cout << endl << "What color would you like " << name << " to be?" << endl;
 		
-		// show them their options
-		cout << "Your options include: " << endl;
-		cout << "basic" << endl;
-		cout << "green" << endl;
-		cout << "blue" << endl;
-		cout << "red" << endl;
-		cout << "brown" << endl;
-		cout << "grey" << endl;
-		cout << "orange" << endl;
-		cout << "purple" << endl;
-		cout << "yellow" << endl << endl;
-		
-		// user input color choice
-		cout << "Your choice: ";
-		cin >> temp_color;
-		
-		// convert their string color choice into the proper integer value of 'color_num'
-		if (temp_color == "green") { color_num = 2; }
-		else if (temp_color == "blue") { color_num = 3; }
-		else if (temp_color == "red") { color_num = 4; }
-		else if (temp_color == "orange") { color_num = 6; }
-		else if (temp_color == "basic") { color_num = 7; }
-		else if (temp_color == "grey") { color_num = 8; }
-		else if (temp_color == "purple") { color_num = 13; }
-		else if (temp_color == "yellow") { color_num = 14; }
+		// do-while loop that iterates until the user enters an acceptable color
+		do {
+			// shows user their options
+			cout << "Your options include: " << endl;
+			cout << "basic" << endl;
+			cout << "green" << endl;
+			cout << "blue" << endl;
+			cout << "red" << endl;
+			cout << "orange" << endl;
+			cout << "grey" << endl;
+			cout << "purple" << endl;
+			cout << "yellow" << endl << endl;
+			
+			// user input color choice
+			cout << "Your choice: ";
+			cin >> temp_color;
+			
+			// convert their string color choice into the proper integer value of 'color_num'
+			if (temp_color == "green") { color_num = 2; }
+			else if (temp_color == "blue") { color_num = 3; }
+			else if (temp_color == "red") { color_num = 4; }
+			else if (temp_color == "orange") { color_num = 6; }
+			else if (temp_color == "basic") { color_num = 7; }
+			else if (temp_color == "grey") { color_num = 8; }
+			else if (temp_color == "purple") { color_num = 13; }
+			else if (temp_color == "yellow") { color_num = 14; }
+			else { 
+				cout << "ERROR: color option not available." << endl << "Try again!" << endl << endl;
+				color_num = 0;  // set 'color_num' to zero to iterate while loop again
+			}
+		} while (color_num == 0);
 	}
 	
 public:
