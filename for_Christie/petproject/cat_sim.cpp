@@ -43,7 +43,7 @@ int main()
 		if (!cat.run_command(userInput1, userInput2)) { break; }
 		
 		if (cat.getName().length() != 0) {
-			display_cat(cat); cout << endl;
+			display_cat(cat); 
 		}		
 	} while (cat.getName().length() != 0);  // when user enters 'stop game' the loop is exited
 		

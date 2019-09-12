@@ -57,10 +57,14 @@ private:
 	// class type helper function that evaluates comfort commands given by the user (private)
 	// if any condition is true based on the user inputted commands, the function returns true, otherwise returns false
 	bool comfortCommands(string& input1, string& input2) {
-		if (input1 == "pet" && input2 == name) { return true; }
-		else if (input1 == "cuddle" && input2 == name) { return true; }			
-		else if (input1 == "hug" && input2 == name) { return true; }
-		else if (input1 == "snuggle" && input2 == name) { return true; }
+		if (input2 == name) {
+			if (input1 == "pet" && input2 == name) { return true; }
+			else if (input1 == "cuddle" && input2 == name) { return true; }			
+			else if (input1 == "hug" && input2 == name) { return true; }
+			else if (input1 == "snuggle" && input2 == name) { return true; }
+			else if (input1 == "play-with" && input2 == name) { return true; }
+			else if (input1 == "walk") { return true; }
+		}
 		else { return false; }
 	}
 	
@@ -178,14 +182,10 @@ private:
 		do {
 			// shows user their options
 			cout << "Your options include: " << endl;
-			cout << "basic" << endl;
-			cout << "green" << endl;
-			cout << "blue" << endl;
-			cout << "red" << endl;
-			cout << "orange" << endl;
-			cout << "grey" << endl;
-			cout << "purple" << endl;
-			cout << "yellow" << endl << endl;
+			cout << "  -basic    -green" << endl;
+			cout << "  -blue     -red" << endl;
+			cout << "  -orange   -grey" << endl;
+			cout << "  -purple   -yellow" << endl;
 			
 			// user input color choice
 			cout << "Your choice: ";
