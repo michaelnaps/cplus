@@ -50,7 +50,7 @@ int main()
 	// once the user decides to stop playing, the cat is saved to their specific file 
 	// this overwrites any previous information about the cat of the same name
 	if (cat.getName().length() != 0) {  // if cat name is longer than 0, the cat is saved
-		if (cat.save()) { cout << cat.getName() << " was saved successfully." << endl; }
+		if (cat.save()) { cout << endl << cat.getName() << " was saved successfully." << endl; }
 		else { cout << "Your cat was not saved." << endl; }  // if the cat is not saved successfully, ouputs error code
 	}
 	

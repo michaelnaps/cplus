@@ -99,7 +99,7 @@ private:
 		time_t current(time(0));  // current time
 		int elapsed(difftime(current, past_time));  // elapsed time from this session and last session
 		
-		iteration = (elapsed / 21600);  // cat loses one iteration in stats every SIX HOURS
+		iteration = (elapsed / 25200);  // cat loses one iteration in stats every SIX HOURS
 		
 		// the cat cannot die due to absence form the game
 		// if statements moderate the maximum integer the hunger and comfort variables can reach
