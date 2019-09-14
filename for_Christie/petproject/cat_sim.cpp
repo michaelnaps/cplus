@@ -53,11 +53,10 @@ int main()
 		if (cat.save()) { cout << endl << cat.getName() << " was saved successfully." << endl; }
 		else { cout << "Your cat was not saved." << endl; }  // if the cat is not saved successfully, ouputs error code
 	}
-	
+		
 	// end program by hitting 'enter' on keyboard
-	cout << endl << "Press ENTER to close... ";
-	getline(cin, close_input);
-	cin.ignore();
+	cout << endl;
+	system("pause");
 
 	return 0;
 }
