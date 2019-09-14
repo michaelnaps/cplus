@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 			screen = SDL_GetWindowSurface(window);
 			
 			// make surace white
-			SDL_FillRect(screen, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+			SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
 			
 			// update surface
 			SDL_UpdateWindowSurface(window);
