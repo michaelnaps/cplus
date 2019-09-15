@@ -15,7 +15,7 @@ bool loadMedia(SDL_Surface* image, const string& filename);
 // close down window function
 void closeSDL(SDL_Window* window, SDL_Surface* image);
 
-int main()
+int main(int argc, char* argv[])
 {
 	SDL_Window* user_window = NULL;
 	SDL_Surface* user_screen = NULL;	
@@ -27,12 +27,11 @@ int main()
 		else {
 			SDL_BlitSurface(user_image, NULL, user_screen, NULL);
 			SDL_UpdateWindowSurface(user_window);
-			SDL_Delay(2000);
 		}
 	}
 	
-	// bool quit(false);  // flag used to exit main while loop
-	// SDL_Event event;
+	bool quit(false);  // flag used to exit main while loop
+	SDL_Event event;
 	
 	closeSDL(user_window, user_image);
 	return 0;
