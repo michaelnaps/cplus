@@ -20,20 +20,35 @@ int main(int argc, char* argv[])
 	SDL_Window* user_window = NULL;
 	SDL_Surface* user_screen = NULL;	
 	SDL_Surface* user_image = NULL;
+	string file = "hello_world.bmp";
 	
 	if (!initialize(user_window, user_screen, 640, 480)) { cout << "ERROR initializing SDL." << endl; }
 	else {
-		if (!loadMedia(user_image, "hello_world.bmp")) { cout << "ERROR loading image." << endl; }
+		if (!loadMedia(user_image, file)) { cout << "ERROR loading image." << endl; }
 		else {
 			SDL_BlitSurface(user_image, NULL, user_screen, NULL);
 			SDL_UpdateWindowSurface(user_window);
 		}
 	}
 	
-	bool quit(false);  // flag used to exit main while loop
-	SDL_Event event;
+	bool quitWin(false);  // flag used to exit main while loop
+	SDL_Event e;
+	
+	// start the 'game loop'
+	while (!quitWin) {
+		// start event loop
+		while (SDL_PollEvent(&e) != 0) {
+			// User requests quit
+			if (e.type == SDL_QUIT) { quitWin = true; }
+		}
+		
+		// apply image to window
+		SDL_BlitSurface(user_image, NULL, user_screen, NULL);
+		SDL_UpdateWindowSurface(user_window);
+	}
 	
 	closeSDL(user_window, user_image);
+	
 	return 0;
 }
 
@@ -43,7 +58,7 @@ bool initialize(SDL_Window* window, SDL_Surface* screen, const int& WIDTH, const
 		return false;
 	}
 	else {
-		window = SDL_CreateWindow("New Sim", SDL_WINDOWPOS_UNDEFINED, 
+		window = SDL_CreateWindow("New Window", SDL_WINDOWPOS_UNDEFINED, 
 			SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 		
 		if (window == NULL) { 

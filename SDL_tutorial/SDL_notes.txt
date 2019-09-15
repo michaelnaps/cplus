@@ -18,3 +18,6 @@ notes:
       'SDL_Delay(int milliseconds)' - delays commands in time milliseconds
       'SDL_DestroyWindow(SDL_Window)' - shuts down window and closes appropraite variables
       'SDL_Quit()' - undoes the 'SDL_Init()' command
+         - DIFFERENT FROM 'SD_QUIT' (below)
+      'SDL_PollEvent(event variable)' - rotates through the user's events (button presses, etc.) and output specific variables for each different action
+         'SDL_QUIT' - output when user exits out the window
