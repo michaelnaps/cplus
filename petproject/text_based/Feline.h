@@ -5,7 +5,7 @@
 
 /* Class type variable that holds the informations regarding a simulated cat. */
 
-#include <windows.h>
+#include <windows.h>  // DOES NOT WORK ON MACS
 
 #include <iostream>
 #include <string>
