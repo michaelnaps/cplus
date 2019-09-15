@@ -1,4 +1,5 @@
-/* Display an image using SDL. */
+
+/* Display an image using SDL window commands. */
 
 #include <SDL.h>
 #include <iostream>
