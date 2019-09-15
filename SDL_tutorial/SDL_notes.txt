@@ -1,0 +1,20 @@
+notes:
+   - include file SDL.h
+   - SDL - Simple DirectMedia Layer
+   new data types:
+      'SDL_Window*' - pointer variable that is used to create and update an open window on the user's screen - good practice to initialize 'NULL'
+      'SDL_Surface*' - image data pointer meant for repeated use - uses CPU rendering - good practice to initialize 'NULL'
+   new commands:
+      'SDL_Init()' - initializes SDL file data so that SDL data types, etc. can be used - returns -1 if error, otherwise 0
+         options for initialize:
+            - 'SDL_INIT_EVERYTHING' - initializes everything the SDL data contains
+            - 'SDL_INIT_VIDEO' - initializes ONLY the SDL video subsystem (faster than intializing everything)
+      'SDL-GetError()' - returns a string with the most recent error the SDL files ran into while running
+      'SDL_CreateWindow(string name, windowPosition x, windowPosition y, screen width, screen height, shown vs. notShown)'
+         - command that creates the window displayed the user (contained in a variable of type 'SDL_Window')
+      'SDL_GetWindowSurface(SDL_Window)' - returns to the 'SDL_Screen' variable type an image of the window
+*     'SDL_FillRect(screen, NULL, color data)'
+      'SDL_UpdateWindowSurface(SDL_Window)' - applies changes to the current window screen
+      'SDL_Delay(int milliseconds)' - delays commands in time milliseconds
+      'SDL_DestroyWindow(SDL_Window)' - shuts down window and closes appropraite variables
+      'SDL_Quit()' - undoes the 'SDL_Init()' command

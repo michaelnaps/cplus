@@ -1,15 +1,3 @@
-// File: catsim_2.cpp
-// Created by: Michael Napoli
-// Created on: 9/14/2019
-// Last modified on:
-
-/*
-	Program that displays a simulated cat using SDL
-	graphics coding. The user must keep the cat alive
-	by any means necessary.
-	{inspired by initial text based version)
-*/
-
 #include <iostream>
 #include <SDL.h>
 using namespace std;
