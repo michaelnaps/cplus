@@ -12,18 +12,21 @@ using namespace std;
 bool initialize(SDL_Window* window, SDL_Surface* screen, const int& WIDTH, const int& HEIGHT);
 
 // loads individual image
-SDL_Surface* loadSurface(string filename);
+SDL_Surface* loadImage(string filename);
 
 int main(int argc, char* argv[])
 {
+	bool CONTINUE(true);
 	SDL_Window* my_window(NULL);
 	SDL_Surface* my_screen(NULL);
 	SDL_Surface* current_screen(NULL);
 
 	enum KeyPressSurfaces {
 		PRESS_DEFAULT, 
-		PRESS_UP, PRESS_DOWN, 
-		PRESS_LEFT, PRESS_RIGHT,
+		PRESS_UP, 
+		PRESS_DOWN, 
+		PRESS_LEFT, 
+		PRESS_RIGHT,
 		PRESS_TOTAL
 	};
 	
@@ -31,18 +34,63 @@ int main(int argc, char* argv[])
 	SDL_Surface* kp_surface[PRESS_TOTAL];
 	
 	// intialize the window being used to display the game
-	if (!initialize(my_window, my_screen, 480, 640)) { cout << "ERROR initializing SDL." << endl; }
-
-	// load images into apprpriate surface array
-	kp_surface[PRESS_DEFAULT] = loadSurface("press.bmp");
-	kp_surface[PRESS_UP] = loadSurface("up.bmp");
-	kp_surface[PRESS_DOWN] = loadSurface("down.bmp");
-	kp_surface[PRESS_LEFT] = loadSurface("left.bmp");
-	kp_surface[PRESS_RIGHT] = loadSurface("right.bmp");
-	
-	// check all array points for NULL spaces a.k.a. the iamge was not loaded
-	for (int i(0); i < PRESS_TOTAL; ++i) {
-		if (kp_surface[i] == NULL) { cout << "ERROR: Image " << i << " did not load correctly." << endl; }
+	if (!initialize(my_window, my_screen, 640, 480)) { cout << "ERROR initializing SDL." << endl; }
+	else {
+		// load images into apprpriate surface array
+		kp_surface[PRESS_DEFAULT] = loadImage("press.bmp");
+		kp_surface[PRESS_UP] = loadImage("up.bmp");
+		kp_surface[PRESS_DOWN] = loadImage("down.bmp");
+		kp_surface[PRESS_LEFT] = loadImage("left.bmp");
+		kp_surface[PRESS_RIGHT] = loadImage("right.bmp");
+		
+		// check all array points for NULL spaces a.k.a. the iamge was not loaded
+		for (int i(0); i < PRESS_TOTAL; ++i) {
+			if (kp_surface[i] == NULL) { 
+				cout << "ERROR: Image " << i << " did not load correctly." << endl; 
+				CONTINUE = false;
+			}
+		}
+		
+		if (CONTINUE) {
+			// begin main loop with window set as default surface image
+			SDL_Event kp;
+			
+			while (CONTINUE) {
+				while (SDL_PollEvent(&kp) != 0) {
+					// user requests quit via window 'x'
+					if (kp.type == SDL_QUIT) { CONTINUE = false; }
+					
+					// user presses a key
+					else if (kp.type == SDL_KEYDOWN) {
+						switch(kp.key.keysym.sym) {
+							case SDLK_UP:
+							current_screen = kp_surface[PRESS_UP];
+							break;
+							
+							case SDLK_DOWN:
+							current_screen = kp_surface[PRESS_DOWN];
+							break;
+							
+							case SDLK_LEFT:
+							current_screen = kp_surface[PRESS_LEFT];
+							break;
+							
+							case SDLK_RIGHT:
+							current_screen = kp_surface[PRESS_RIGHT];
+							break;
+							
+							default:
+							current_screen = kp_surface[PRESS_DEFAULT];
+							break;
+						}
+					}
+					
+					// apply changes
+					SDL_BlitSurface(current_screen, NULL, my_screen, NULL);
+					SDL_UpdateWindowSurface(my_window);
+				}
+			}
+		}
 	}
 
 	// close down all varaibles related to SDL and quit
@@ -86,7 +134,7 @@ bool initialize(SDL_Window* window, SDL_Surface* screen, const int& WIDTH, const
 	return true;
 }
 
-SDL_Surface* loadSurface(string filename) {
+SDL_Surface* loadImage(string filename) {
 	SDL_Surface* loaded_image = SDL_LoadBMP(filename.c_str());
 	if (loaded_image == NULL) {
 		cout << "ERROR loading image at " << filename << "." << endl;
