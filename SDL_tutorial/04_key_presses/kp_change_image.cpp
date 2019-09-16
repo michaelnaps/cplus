@@ -15,27 +15,41 @@ bool initialize(SDL_Window* window, SDL_Surface* screen, const int& WIDTH, const
 bool loadMedia(SDL_Surface* image, const string& filename);
 
 // loads individual image
-SDL_Surface* loadSurface(string filename);  // STOPPED HERE
+SDL_Surface* loadSurface(string filename);
 
-int main(int argv, char* argc[])
+int main(int argc, char* argv[])
 {
 	SDL_Window* my_window(NULL);
 	SDL_Surface* my_screen(NULL);
-	
+	SDL_Surface* current_screen(NULL);
+
 	enum KeyPressSurfaces {
 		PRESS_DEFAULT, 
 		PRESS_UP, PRESS_DOWN, 
 		PRESS_LEFT, PRESS_RIGHT,
 		PRESS_TOTAL
-	}
+	};
 	
+	// the image that correspoonds to a key press
+	SDL_Surface* key_press_surface_T[PRESS_TOTAL];
+	
+	if (!initialize(my_window, my_screen, 480, 640)) { cout << "ERROR initializing SDL." << endl; }
+
 	// close down all varaibles related to SDL and quit
 	
 	SDL_FreeSurface(my_screen);  // erase screen variable
-	my_screen = NULL;
+	my_screen = NULL;  // set to null pointer
+	
+	SDL_FreeSurface(current_screen);  // erase screen variable
+	current_screen = NULL;  // set to null pointer
+	
+	for (int i(0); i < PRESS_TOTAL; ++i) {
+		SDL_FreeSurface(key_press_surface_T[i]);  // erase screen variable
+		key_press_surface_T[i] = NULL;  // set to null pointer
+	}
 	
 	SDL_DestroyWindow(my_window);  // destroy window
-	window = NULL;  // set to null
+	my_window = NULL;  // set to null pointer
 	
 	SDL_Quit();  // clear out memory from variables
 
@@ -74,16 +88,33 @@ bool loadMedia(SDL_Surface* image, const string& filename) {
 	return true;
 }
 
-// FUNCTION DEFINITION: 'closeSDL()'
-// function closes given variables for SDL windows and screens
-// 'window' - window variable that will be closed
-// 'image' - image varaible that will be erased from memory
-void closeSDL(SDL_Window* window, SDL_Surface* image) {
-	SDL_FreeSurface(image);  // erase image
-	image = NULL;  // set to null
+// STOPPED HERE
+SDL_Surface* loadSurface(string filename) {
+	SDL_Surface* loaded_image = SDL_LoadBMP(filename.c_str());
+	if (loaded_image == NULL) {
+		cout << "ERROR loading image at " << filename << "." << endl;
+		cout << "ERROR: " << SDL_GetError() << endl;
+	}
 	
-	SDL_DestroyWindow(window);  // destroy window
-	window = NULL;  // set to null
-	
-	SDL_Quit();  // clear out memory from variables
+	return loaded_image;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
