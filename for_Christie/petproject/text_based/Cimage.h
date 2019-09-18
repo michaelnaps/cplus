@@ -3,7 +3,10 @@
 // Created on: 9/6/2019
 // Last modified on: 9/11/2019
 
-/* Class type for command prompt capable images of cats. */
+/* 
+	Class type for command prompt capable ASCII images of cats. 
+	For all image types: the rules of 'type1()' applies.
+*/
 
 #include <iostream>
 using namespace std;
@@ -14,10 +17,14 @@ private:
 	int image_num;
 	int color_num;
 	
+	// image #1
 	void type1() {
-		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));
+		// create variable of type HANDLE in order to apply color changes to command prompt
+		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));  
+		// set color equal to the number entered to the function call
 		SetConsoleTextAttribute(hConsole, color_num);
 		
+		// output image
 		cout << "  /\\___/\\ " << endl;
 		cout << " ( o   o ) " << endl;
 		cout << " (  =^=  ) " << endl;
@@ -25,8 +32,10 @@ private:
 		cout << " (         ) " << endl;
 		cout << " (          ))))))))))) " << endl;
 		
-		SetConsoleTextAttribute(hConsole, 7);
+		SetConsoleTextAttribute(hConsole, 7);  // set text color back to basic
 	}
+	
+	// image #2
 	void type2() {
 		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));
 		SetConsoleTextAttribute(hConsole, color_num);
@@ -41,6 +50,8 @@ private:
 		
 		SetConsoleTextAttribute(hConsole, 7);
 	}
+	
+	// image #3
 	void type3() {
 		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));
 		SetConsoleTextAttribute(hConsole, color_num);
@@ -52,6 +63,8 @@ private:
 		
 		SetConsoleTextAttribute(hConsole, 7);
 	}
+	
+	// image #4
 	void type4() {
 		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));
 		SetConsoleTextAttribute(hConsole, color_num);
@@ -63,6 +76,8 @@ private:
 		
 		SetConsoleTextAttribute(hConsole, 7);
 	}
+	
+	// image #5
 	void type5() {
 		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));
 		SetConsoleTextAttribute(hConsole, color_num);
@@ -75,6 +90,8 @@ private:
 		
 		SetConsoleTextAttribute(hConsole, 7);
 	}
+	
+	// image #6
 	void type6() {
 		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));
 		SetConsoleTextAttribute(hConsole, color_num);
@@ -95,11 +112,13 @@ public:
 	Cimage() : color_num(7)  // automatically set color_num to base windows text color
 	{ }
 
+	// choose image and color (public function)
 	void setImage(int temp_num, int temp_color) { 
 		image_num = temp_num;
 		color_num = temp_color;
 	}
 	
+	// display image based on 'image_num' inputted from function call
 	void display_image(){
 		if (image_num == 1) { this->type1(); }
 		else if (image_num == 2) { this->type2(); }
