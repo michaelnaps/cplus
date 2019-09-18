@@ -1,7 +1,7 @@
 // File: Feline.h
 // Created by: Michael Napoli
 // Created on: 8/27/2019
-// Last modified on: 9/11/2019
+// Last modified on: 9/18/2019
 
 /* Class type variable that holds the informations regarding a simulated cat. */
 
@@ -190,6 +190,7 @@ private:
 			// user input color choice
 			cout << "Your choice: ";
 			cin >> temp_color;
+			cout << endl;
 			
 			// convert their string color choice into the proper integer value of 'color_num'
 			if (temp_color == "green") { color_num = 2; }
