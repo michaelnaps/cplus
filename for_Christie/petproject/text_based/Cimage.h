@@ -106,6 +106,18 @@ private:
 		cout << "          '.,,/'.,, " << endl;
 		
 		SetConsoleTextAttribute(hConsole, 7);
+	}	
+	
+	// image #7
+	void type7() {
+		HANDLE hConsole(GetStdHandle(STD_OUTPUT_HANDLE));
+		SetConsoleTextAttribute(hConsole, color_num);
+		
+		cout << "   /\\_/\\ " << endl;
+		cout << "  ( o.o ) " << endl;
+		cout << "   > ^ < " << endl;
+		
+		SetConsoleTextAttribute(hConsole, 7);
 	}
 	
 public:
@@ -126,5 +138,6 @@ public:
 		else if (image_num == 4) { this->type4(); }
 		else if (image_num == 5) { this->type5(); }
 		else if (image_num == 6) { this->type6(); }
+		else if (image_num == 7) { this->type7(); }
 	}
 };

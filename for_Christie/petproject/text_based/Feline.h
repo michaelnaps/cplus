@@ -89,7 +89,7 @@ private:
 		
 		// tell user what happened if they don't already know
 		cout << "Your cat has died, probably due to neglect." << endl;
-		cout << "Maybe by choice." << endl << endl;
+		cout << "Maybe by choice." << endl;
 	}
 	
 	// function that uses time to iterate the stats of the given cat save data to "punish" long absence
@@ -283,15 +283,21 @@ public:
 			cout << endl << "ERROR: Something is wrong with the save file." << endl;
 			return false;  // return false
 		}
-		
-		// if file does open:
-		fout << name << " ";  // ouput the 'name' of the cat to the file
-		fout << hunger_count << " ";  // ouput the hunger integer value of the cat
-		fout << comfort_count << " ";  // output the comfort integer value of the cat
-		fout << current_time << " ";  // output to the file the time the game period was ended
-		fout << color_num << " ";
-		
-		fout.close();  // close the cat text file
+		else {		
+			// if file does open:
+			fout << name << " ";  // ouput the 'name' of the cat to the file
+			fout << hunger_count << " ";  // ouput the hunger integer value of the cat
+			fout << comfort_count << " ";  // output the comfort integer value of the cat
+			fout << current_time << " ";  // output to the file the time the game period was ended
+			fout << color_num << " ";
+			
+			fout.close();  // close the cat text file
+			
+			image_num = 7;  // cat image set to the new cat
+			
+			cout << endl;
+			this->display_feline();  // displays the "closing" cat
+		}
 		
 		return true;  // return true
 	}
