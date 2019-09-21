@@ -1,4 +1,7 @@
 // File: Chemistry.h
+// Created by: Michael Napoli
+// Created on: 8/6/2019
+// Last modified on: 8/15/2019
 /*
    Purpose: Include file that incorporates chemistry calculations
    into the basic C++ programming system.
@@ -8,8 +11,6 @@
       -calculate moles with given compound and mass of sample
       -calculate molarity using moles and entered volume
 */
-// Created on: 8/6/2019
-// Last modified on: 8/15/2019
 
 #include <iostream>
 #include <vector>
