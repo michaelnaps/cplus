@@ -25,6 +25,7 @@ int main()
 	
 	cout << "What is your cat's name? ";  // ask user for the name of their cat
 	cin >> temp_name;
+	
 	cat.setName(temp_name);  // apply temporary name to Feline class type variable
 	
 	// if cat of the same name has been made before, the load file for that cat is opened

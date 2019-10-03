@@ -1,7 +1,7 @@
 // File: Feline.h
 // Created by: Michael Napoli
 // Created on: 8/27/2019
-// Last modified on: 9/18/2019
+// Last modified on: 10/2/2019
 
 /* Class type variable that holds the informations regarding a simulated cat. */
 
