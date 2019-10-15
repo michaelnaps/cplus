@@ -5,7 +5,7 @@
 
 /* Class type variable that holds the informations regarding a simulated cat. */
 
-#include <windows.h>  // DOES NOT WORK ON MACS
+#include <windows.h>  // DOES NOT WORK ON MACS OR LINUX
 
 #include <iostream>
 #include <string>
@@ -343,30 +343,3 @@ public:
 		return true;  // return true
 	}
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
