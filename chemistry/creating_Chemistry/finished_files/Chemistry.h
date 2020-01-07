@@ -164,10 +164,13 @@ public:
          create_PT_vects("Og", 294);
       }
    }
+
    // return element based on number of protons
    string getEl(int n) const { return elements[n - 1]; }
+
    // return amu value based on number of protons
    double getAMU(int n) const { return atomic_mass_units[n - 1]; }
+
    // return size of periodic table (how many elements are present)
    int getSize() const {
       if (elements.size() == atomic_mass_units.size()) { return atomic_mass_units.size(); }
@@ -214,6 +217,7 @@ private:
          mass = 0;
       }
    }
+
    // calculates moles based on available values
    // if not possible, returns appropriate error message
    void calc_moles() {
@@ -224,6 +228,7 @@ private:
          moles = 0;
       }
    }
+
    // calculates molarity based on available values
    // if not possible, returns appropriate error message
    void calc_molarity() {
@@ -234,6 +239,7 @@ private:
          molarity = 0;
       }
    }
+
    // calculates molar mass based on the 'compound' string
    void calc_molarMass() {
       molar_mass = 0;
@@ -243,6 +249,7 @@ private:
          check_el(PT.getEl(proton_num), PT.getAMU(proton_num));
       }
    }
+
    // runs check for all possible elements within the 'compound' string
    // utilizes 'multiple' variable in order to scale appropriate elements
    // utilizes if statements to evaluate mono and poly abreviated elements
@@ -279,6 +286,7 @@ private:
 
       multiple = 1;  // set multiple back to 1
    }
+
    // helper member function that checks for multiples within the 'compound' string
    int multiple_for_el(string el, int el_loc) {
       int multiple(1);
@@ -312,21 +320,26 @@ public:
       compound = temp_compound;
       if (c != compound) { this->calc_molarMass(); }  // if it is being changed, calculate new molar mass
    }
+
    void setVolume(double temp_volume) { 
       volume = temp_volume; 
    }
+
    void setMass(double temp_mass) { 
       if (fabs(temp_mass) > EPSILON) { mass = temp_mass; }
       else { this->calc_mass(); }
    }
+
    void setMolarMass(double temp_MM) {
       if (fabs(temp_MM) > EPSILON) { molar_mass = temp_MM; }
       else { this->calc_molarMass(); }
    }
+
    void setMoles(double temp_moles) { 
       if (fabs(temp_moles) > EPSILON) { moles = temp_moles; }
       else { this->calc_moles(); }
    }
+
    void setMolarity(double temp_molarity) {
       if (fabs(temp_molarity) > EPSILON) { molarity = temp_molarity; }
       else { this->calc_molarity(); }
@@ -338,6 +351,7 @@ public:
       if (compound != "X") { return compound; }
       else { cout << "ERROR: No compound was entered. " << endl; }
    }
+
    double getMass() {
       if (fabs(mass) > EPSILON) { return mass; }
       else {
@@ -345,6 +359,7 @@ public:
          return mass;
       }
    }
+
    double getVolume() {
       if (fabs(volume) > EPSILON) { return volume; }
       else {
@@ -352,6 +367,7 @@ public:
          return volume;
       }
    }
+
    double getMolarMass() {
       if (fabs(molar_mass) > EPSILON) { return molar_mass; }
       else { 
@@ -359,6 +375,7 @@ public:
          return molar_mass;
       }
    }
+
    double getMoles() {
       if (fabs(moles) > EPSILON) { return moles; }
       else {
@@ -366,6 +383,7 @@ public:
          return moles;
       }
    }
+
    double getMolarity() {
       if (fabs(molarity) > EPSILON) { return molarity; }
       else {
