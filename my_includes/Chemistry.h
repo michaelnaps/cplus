@@ -1,7 +1,7 @@
 // File: Chemistry.h
 // Created by: Michael Napoli
 // Created on: 8/6/2019
-// Last modified on: 8/15/2019
+// Last modified on: 1/31/2020
 /*
    Purpose: Include file that incorporates chemistry calculations
    into the basic C++ programming system.
@@ -20,7 +20,7 @@
 #include <cmath>
 using namespace std;
 
-/* 
+/*
    Class type that creates a useable periodic table containing:
       -abreviated element name
       -amu of specified element
@@ -38,7 +38,7 @@ private:
       atomic_mass_units.push_back(amu);
    }
 
-public:
+public:   
    /* member function that creates both the 'elements' vector and the 'atomic_mass_units' vector
       in the correct order according to the periodic table */
    void create_PT()
@@ -175,8 +175,8 @@ public:
    int getSize() const {
       if (elements.size() == atomic_mass_units.size()) { return atomic_mass_units.size(); }
       else {
-         cout << "ERROR: Periodic table values do not match correctly." << endl; 
-         return 1; 
+         cout << "ERROR: Periodic table values do not match correctly." << endl;
+         return 1;
       }
    }
 };
@@ -204,7 +204,7 @@ private:
    double molarity;  // molarity of sample solution
    Periodic_table PT;  // periodic table vectors (element names and respective AMU)
 	const double EPSILON;
-   
+
    // CALCULATION MEMBER FUNCTIONS (private)
 
    // calculates mass based on available values
@@ -212,7 +212,7 @@ private:
    void calc_mass() {
       if (fabs(moles) > EPSILON && fabs(molar_mass) > EPSILON) { mass = (moles * molar_mass); }
       else if (fabs(molarity) > EPSILON && fabs(molar_mass) > EPSILON && fabs(volume) > EPSILON) { mass = ((molarity * volume) * molar_mass); }
-      else { 
+      else {
          cout << "ERROR: There is not enough information to solve for mass." << endl;
          mass = 0;
       }
@@ -223,7 +223,7 @@ private:
    void calc_moles() {
       if (fabs(molarity) > EPSILON && fabs(volume) > EPSILON) { moles = (molarity * volume); }
       else if (fabs(molar_mass) > EPSILON && fabs(mass) > EPSILON) { moles = (mass / molar_mass); }
-      else { 
+      else {
          cout << "ERROR: There is not enough information to solve for moles." << endl;
          moles = 0;
       }
@@ -234,7 +234,7 @@ private:
    void calc_molarity() {
       if (fabs(moles) > EPSILON && fabs(volume) > EPSILON) { molarity = (moles / volume); }
       else if (fabs(volume) > EPSILON && fabs(mass) > EPSILON && fabs(molar_mass) > EPSILON) { molarity = ((mass / molar_mass) / volume); }
-      else { 
+      else {
          cout << "ERROR: There is not enough information to solve for molarity." << endl;
          molarity = 0;
       }
@@ -258,7 +258,7 @@ private:
       int el_loc(-1);  // given elements location in the given compound
 
       if (el.length() == 1) {
-         if (compound.find(el) != string::npos && 
+         if (compound.find(el) != string::npos &&
          (isupper(compound[compound.find(el) + 1]) || isdigit(compound[compound.find(el) + 1]) ||
          (compound.find(el) == compound.length() - 1)))
          {
@@ -294,13 +294,13 @@ private:
 
       num_out.str(std::string());  // clears string stream variable
 
-      if (isdigit(compound[el_loc + el.length()])) { 
-         if (isdigit(compound[el_loc + el.length() + 1])) { 
+      if (isdigit(compound[el_loc + el.length()])) {
+         if (isdigit(compound[el_loc + el.length() + 1])) {
             num_out << compound[el_loc + el.length()];
             num_out << compound[el_loc + el.length() + 1];
          }
          else { num_out << compound[el_loc + el.length()]; }
-         num_out >> multiple; 
+         num_out >> multiple;
       }
 
       return multiple;
@@ -314,18 +314,18 @@ public:
 
    // SET MEMBER FUNCTIONS
    // if the given value is 0 or 'X', the value of the function will be calculated using available data
-   
-   void setCompound(string temp_compound) { 
+
+   void setCompound(string temp_compound) {
       string c(compound);  // to judge whether or not the initial compound is being changed from a previous version
       compound = temp_compound;
       if (c != compound) { this->calc_molarMass(); }  // if it is being changed, calculate new molar mass
    }
 
-   void setVolume(double temp_volume) { 
-      volume = temp_volume; 
+   void setVolume(double temp_volume) {
+      volume = temp_volume;
    }
 
-   void setMass(double temp_mass) { 
+   void setMass(double temp_mass) {
       if (fabs(temp_mass) > EPSILON) { mass = temp_mass; }
       else { this->calc_mass(); }
    }
@@ -335,7 +335,7 @@ public:
       else { this->calc_molarMass(); }
    }
 
-   void setMoles(double temp_moles) { 
+   void setMoles(double temp_moles) {
       if (fabs(temp_moles) > EPSILON) { moles = temp_moles; }
       else { this->calc_moles(); }
    }
@@ -370,7 +370,7 @@ public:
 
    double getMolarMass() {
       if (fabs(molar_mass) > EPSILON) { return molar_mass; }
-      else { 
+      else {
          this->calc_molarMass();
          return molar_mass;
       }
@@ -391,8 +391,8 @@ public:
          return molarity;
       }
    }
-   
-   void getCommands() {
+
+   void help() {
       cout << "Get/Set options:" << endl;
       cout << "-Compound  -MolarMass  -Volume  -Moles  -Molarity" << endl << endl;
       cout << "The 'variableName.getReturnOption()' returns the value of the appropriate variable." << endl;
