@@ -2,16 +2,30 @@
 // File: poly.cpp
 // Created by: Michael Napoli
 // Created on: 2/4/2020
-// Last modified on:
+// Last modified on: 2/11/2020
 
 /*
-   Purpose: Test file for the polynomial class type 'Poly'
-      This class type will utilize a dynamic array and member functions to maintain
-      the data for a given polynomial function.
+   Purpose: Test file for the 'Poly' class type
+      Polynomial functions will be entered by their coefficient into
+      a given array. The indexes of the coefficients within the array
+      will be indexed by their degree of polynomial.
+
+      For example:
+         If a polynomial is 7x^3 it will be indexed in the 'coeff' array
+         as such: "coeff[3] = 7;"
+
+      The user of this class type can use operators to add and subtract
+      polynomials. As well as compare polynomials using the boolean '=='
+
+      The user can also output the polynomials in the format (kx^n)
+      where k is a coefficient and n is the given degree.
 */
 
 #include <iostream>
 using namespace std;
+
+// Default size of the dynamic coefficient array
+const int DEFAULTPOLY = 10;
 
 // Do NOT modify the class header.
 class Poly
@@ -25,11 +39,11 @@ public:
    // CLASS CONSTRUCTORS:
 
    // Default Class constructor
-   // Allocate an array of DEFAULTPOLY elements and initialize it to the constant 0
-   // post: Class object is initialized to degree-0 polynomial of 0
+   // If the user does not declare any values at initialization the
+   // 'coeff' array will be initialized to size 10 with all values 0.
    Poly() {
-      // set 'arraySize' to default size 10
-      arraySize = 10;
+      // set 'arraySize' to default
+      arraySize = DEFAULTPOLY;
 
       // create array of default size
       coeff = new int [arraySize];
@@ -41,8 +55,8 @@ public:
    }
 
    // Non-default (alternate) Class constructor
-   // Allocate an array of 'size' elements and initializes it to the constant 0
-   // post: Class object is initialized to degree-0 polynomial of 0
+   // If the user initializes the 'Poly' variable with an integer it
+   // automatically sets the array size of 'coeff' to the given value.
    Poly(int size) {
       // set 'arraySize' to given value
       arraySize = size;
@@ -57,14 +71,16 @@ public:
    }
 
    // Copy constructor
-   // Construct a new Poly that is a copy of an existing Poly
-   // post: Class object is initialized to be a copy of the argument Poly
+   // If the user initializes a 'Poly' variable with another 'Poly'
+   // variable, the new variable is equal to that of the first.
    Poly(const Poly& aPoly) {
+      // call '=' operator
       this->operator=(aPoly);
    }
 
    // CLASS DESTRUCTOR:
 
+   // Automatically called when a 'Poly' variable leaves a local funtion
    // Destroy a poly object by freeing the dynamically allocated array
    ~Poly() {
       // deallocate memory for 'coeff' array and set to NULL
@@ -80,13 +96,11 @@ public:
    // MEMBER FUNCTIONS:
 
    // member function: grow()
-   // This method will allow us to increase the size of the dynamically allocated
-   // array by allocating a new array of the desired size, copying the data from
-   // the old array to the new array, and then releasing the old array.
-   // If the newSize is less than or equal to the current size, then no actions
-   // are taken.
-   // Note: the maximum degree of a polynomial is one less than the size of the
-   // array. The parameter newSize represents the size of the array.
+   // Function that takes the polynomial variable and a new arraysize to
+   // increase the number of allocated memory spaces to the new larger value.
+   // input:
+   // an already initialzed 'Poly' variable
+   // 'newSize' - the desired new size of the 'coeff' array
    void grow(int newSize) {
       int oldSize(arraySize);  // variable for the previous size of the coefficient array
       int* temp_arr;  // pointer variable for the temporary coefficient array
@@ -132,10 +146,11 @@ public:
    }
 
    // member function: degree()
-   // Finds the degree of a polynomial (the highest power with a non-zero
-   // coefficient)
-   // pre: Class object exists
-   // post: Returns the degree of the polynomial object.
+   // Function that returns the largest degree value in the coefficient array.
+   // input:
+   // an already initialized 'Poly' variable
+   // output:
+   // largest degree value with a non-zero coefficient
    int degree() const {
       int deg(0);  // variable for the largest polynomial degree in the 'coeff' array
 
@@ -149,12 +164,13 @@ public:
       return deg;  // return the largest polynomial value
    }
 
-
    // member function: setCoeff()
-   // Sets a term, value*x^i, in a polynomial, growing the array if necessary.
-   // pre: Class object has been initialized. i is a non-negative integer.
-   // post: In the polynomial, the term with power i has coefficient
-   //       value. The polynomical was grown if required.
+   // Function that takes a coefficient value and the degree index to
+   // add to the 'coeff' array.
+   // input:
+   // an already initialized 'Poly' variable
+   // 'value' - the coefficient value to be placed in the array
+   // 'i' - the degree of the coefficient, also the index in the 'coeff' array
    void setCoeff(int value, int i) {
       // if 'i' is negative
       if (i < 0) {
@@ -172,13 +188,14 @@ public:
       return;  // return nothing
    }
 
-
    // member function: getCoeff()
-   // Finds the coefficient of the x^i term in poly
-   // pre: Class object has been initialized. i is a non-negative integer.
-   // post: Returns the value of the coefficient of the term with power i
-   // note: If the object does not contain a term with power i (e.g.,
-   //       i >= arraySize), a coefficient value of zero is returned.
+   // Function that returns the coefficient located in the 'coeff' array
+   // at the given index with the equal degree value.
+   // input:
+   // an already initalized 'Poly' variable
+   // 'i' - the degree of the coefficient, also the index in the 'coeff' array
+   // output:
+   // value of the coefficient with the given degree index
    int getCoeff(int i) const {
       // if index is negative
       if (i < 0) {
@@ -195,10 +212,10 @@ public:
    }
 
    // member function: negate()
-   // Negate a polynomial
-   // pre: The class object has been initialized.
-   // post: The polynomial has been changed to represent its
-   //       multiplication by -1.
+   // Function that changes all variables in the 'coeff' array to
+   // the same value multiplied by -1.
+   // input:
+   // an already initialized 'Poly' variable
    void negate() {
       // set all coefficients to itself multiplied by -1
       for(int i(0); i < arraySize; ++i) {
@@ -208,35 +225,75 @@ public:
       return;  // return nothing
    }
 
-   // FRIEND FUNCTIONS:
+   // FRIEND FUNCTIONS: (all function definitions located below)
 
    // addition operator
-   // Add two polynomials together and return a new polynomial that is the result
-   // pre: Both class objects have been initialized
-   // post: The sum of two polynomials is stored in a new polynomial which is returned.
-   //       The parameter polynomials are not changed.
    friend Poly operator+(const Poly& aPoly, const Poly& bPoly);
 
    // subtraction operator
-   // Subtracts one polynomial from another and return a new polynomial that is the result
-   // pre: Both class objects have been initialized
-   // post: The difference of two polynomials is stored in a new polynomial which is returned.
-   //       The parameter polynomials are not changed.
    friend Poly operator-(const Poly& aPoly, const Poly& bPoly);
 
    // equality operator
-   // Compare two polynomials and return true if they are the same, false otherwise
-   // pre: Both class objects have been initialized
-   // post: A boolean value indicating whether two polynomials are the same is returned.
-   //       The parameter polynomials are not changed.
    friend bool operator==(const Poly& aPoly, const Poly& bPoly);
 
    // insertion operator for output
-   // Print polynomials
-   // pre: The class object has been initialized
-   // post: several values representing the polynomial are inserted into the output stream
    friend ostream& operator<<(ostream& out, const Poly &aPoly);
 };
+
+int main(){
+   Poly poly1, poly2;  // variables for the testing of the 'Poly' class
+   int numCoeff, coeffValue, coeffDegree, x;  // input variables for users
+
+   // prompt user for the number of coefficients
+   cout << "How many coefficients for polynomial 1?" << endl;
+   cin >> numCoeff;
+   for (int i=0; i<numCoeff; ++i){
+      cout << "Coefficient " << i+1 << " for polynomial 1:";
+      cin >> coeffValue >> coeffDegree;
+      poly1.setCoeff(coeffValue, coeffDegree);
+   }
+
+   cout << endl << "How many coefficients for polynomial 2?" << endl;
+   cin >> numCoeff;
+   for (int i=0; i<numCoeff; ++i){
+      cout << "Coefficient " << i+1 << " for polynomial 2:";
+      cin >> coeffValue >> coeffDegree;
+      poly2.setCoeff(coeffValue, coeffDegree);
+   }
+
+   // Sample test cases for degree() and operator<<
+   cout << endl << "Polynomial 1 = " << poly1 << endl;
+   cout << "Polynomial 1 has degree " << poly1.degree() << endl;
+   cout << "Polynomial 2 = " << poly2 << endl;
+   cout << "Polynomial 2 has degree " << poly2.degree() << endl;
+
+   // Sample test cases for operator+ and operator-
+   cout << endl << "Polynomial 1 + Polynomial 2 = " << poly1 + poly2 << endl;
+   cout << "Polynomial 1 - Polynomial 2 = " << poly1 - poly2 << endl << endl;
+
+   // Sample test cases for operator==
+   if (poly1==poly2)
+      cout << "Two polynomials are the same." << endl;
+   else
+      cout << "Two polynomials are different." << endl;
+
+   // test degree of polynomial when the array size is greater than the polynomial degree
+   Poly degree_test(15);  // set size to 15 on initialization
+   degree_test.setCoeff(1, 10);  // should return degree 10 on output
+   cout << endl << "Degree of test polynomial: " << degree_test.degree() << endl << endl;
+
+   // test the copy operator by initializing to an already declared polynomial
+   Poly poly1_copy(poly1);
+   if (poly1 == poly1_copy) {
+      cout << "SUCCESS: copy of poly1 = " << poly1_copy << endl;
+   }
+   else {
+      cout << "ERROR in the copy constructor" << endl;
+   }
+
+   // end program
+   return 0;
+}
 
 // Do not modify this function
 const Poly& Poly::operator=(const Poly& aPoly){
@@ -253,6 +310,14 @@ const Poly& Poly::operator=(const Poly& aPoly){
    return *this;
 }
 
+// FRIEND FUNCTION DEFINITIONS:
+
+// '+' operator function
+// When called by the user, add the coefficients of two polynomials together.
+// input:
+// Two already initialized 'Poly' variables
+// output:
+// A single 'Poly' variables made from the sum of the two given functions
 Poly operator+(const Poly& aPoly, const Poly& bPoly) {
    Poly poly_return;  // intialize the return polynomial
    int temp_arraySize(0);  // variable for the maximum array size
@@ -289,6 +354,12 @@ Poly operator+(const Poly& aPoly, const Poly& bPoly) {
    return poly_return;
 }
 
+// '-' operator function
+// When the operator is called, all coefficient values will be subtracted from one another.
+// input:
+// Two already declared 'Poly' variables
+// output:
+// A single 'Poly' function made from the subtraction of 'bPoly' from 'aPoly'
 Poly operator-(const Poly& aPoly, const Poly& bPoly) {
    Poly poly_return;  // intialize the return polynomial
    int temp_arraySize(0);  // variable for the maximum array size
@@ -325,6 +396,13 @@ Poly operator-(const Poly& aPoly, const Poly& bPoly) {
    return poly_return;
 }
 
+// '==' operator function
+// When called, will evaluate two 'Poly' variables for equality
+// input:
+// Two already initialized 'Poly' variables
+// output:
+// true if the polynomials are equal
+// false if the polynomials are not equal
 bool operator==(const Poly& aPoly, const Poly& bPoly) {
    int temp_arraySize(0);
 
@@ -349,6 +427,11 @@ bool operator==(const Poly& aPoly, const Poly& bPoly) {
    return true;
 }
 
+// '<<' operator function
+// When called, will output the polynomial function given.
+// input:
+// already initialized 'Poly' variable
+// output stream variable
 ostream& operator<<(ostream& out, const Poly &aPoly) {
    int count(0);  // variable used to evaluate need for '+' sign
 
