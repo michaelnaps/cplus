@@ -32,7 +32,30 @@ class Poly
 private:
    // Data members
    int arraySize;    // size of array
-   int *coeff;       // dynamic array
+   double *coeff;       // dynamic array
+
+   // PRIVATE MEMBER FUNCTIONS:
+
+/*
+   // member function: power()
+   // Function that takes a value and raises it to the given power
+   // input:
+   // 'val' - value to be raised to the given power
+   // 'deg' - power given to the function
+   // output:
+   // 'ans' - 'val' raised to 'deg'
+   double power(const double& val, const int& deg) const {
+      double ans(0);  // variable for the repeated multiplication of 'val'
+
+      // for a given number of times, multiply by 'val'
+      for (int i(0); i < deg; ++i) {
+         ans *= val;
+      }
+
+      // return the number given raised to the power given
+      return ans;
+   }
+*/
 
 public:
    // CLASS CONSTRUCTORS:
@@ -45,7 +68,7 @@ public:
       arraySize = 10;
 
       // create array of default size
-      coeff = new int [arraySize];
+      coeff = new double [arraySize];
 
       // set all values to 0
       for (int i(0); i < arraySize; ++i) {
@@ -61,7 +84,7 @@ public:
       arraySize = size;
 
       // allocate memory for dynamic array
-      coeff = new int [arraySize];
+      coeff = new double [arraySize];
 
       // set values of array elements to 0
       for (int i(0); i < arraySize; ++i) {
@@ -100,7 +123,7 @@ public:
    // input:
    // an already initialzed 'Poly' variable
    // 'newSize' - the desired new size of the 'coeff' array
-   void grow(int newSize) {
+   void grow(const int& newSize) {
       int oldSize(arraySize);  // variable for the previous size of the coefficient array
       int* temp_arr;  // pointer variable for the temporary coefficient array
 
@@ -110,7 +133,7 @@ public:
       }
 
       // otherwise, allocate memory to the temporary array (old size)
-      temp_arr = new int [arraySize];
+      temp_arr = new double [arraySize];
 
       // create copy of old array
       for (int i(0); i < arraySize; ++i) {
@@ -125,7 +148,7 @@ public:
       arraySize = newSize;
 
       // set 'coeff' array to the new size given
-      coeff = new int [arraySize];
+      coeff = new double [arraySize];
 
       // initialize new array elements to '0'
       for (int i(0); i < arraySize; ++i) {
@@ -170,7 +193,7 @@ public:
    // an already initialized 'Poly' variable
    // 'value' - the coefficient value to be placed in the array
    // 'i' - the degree of the coefficient, also the index in the 'coeff' array
-   void setCoeff(int value, int i) {
+   void setCoeff(double value, int i) {
       // if 'i' is negative
       if (i < 0) {
          return;  // return without adding coefficient to array
@@ -195,7 +218,7 @@ public:
    // 'i' - the degree of the coefficient, also the index in the 'coeff' array
    // output:
    // value of the coefficient with the given degree index
-   int getCoeff(int i) const {
+   double getCoeff(int i) const {
       // if index is negative
       if (i < 0) {
          return 0;  // return 0
@@ -382,7 +405,8 @@ bool operator==(const Poly& aPoly, const Poly& bPoly) {
 ostream& operator<<(ostream& out, const Poly &aPoly) {
    int count(0);  // variable used to evaluate need for '+' sign
 
-   // iterate from the largest polynomial value 0
+   // iterate from the largest polynomial value with a nonzero coefficient
+   // through the entire 'coeff' array
    for (int i(aPoly.degree()); i > -1; --i) {
          if (aPoly.coeff[i] != 0) {
             // if this is not the first output, output a '+' sign before the coefficient value

@@ -1,7 +1,6 @@
 // File: test_poly.cpp
 // Created by: Michael Napoli
 // Created on: 2/12/2020
-// Last modified on:
 
 /* Program to test the functionality of the 'Poly' class type. */
 
