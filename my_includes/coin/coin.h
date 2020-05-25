@@ -34,11 +34,11 @@ namespace mercury {
       double getTotal();
 
       // OPERATOR FUNCTIONS:
-      friend double operator+(Coin var1, Coin var2);
-      friend double operator-(Coin var1, Coin var2);
-      friend double operator++(Coin var);
-      friend double operator--(Coin var);
-      friend ostream& operator>>(ostream& m_out, Coin var);
+      friend double operator+(const Coin& var1, const Coin& var2);
+      friend double operator-(const Coin& var1, const Coin& var2);
+      friend double operator++(const Coin& var);
+      friend double operator--(const Coin& var);
+      friend ostream& operator>>(ostream& m_out, const Coin& var);
    };
 }
 

@@ -47,19 +47,19 @@ namespace mercury {
    }
 
    // OPERATOR FUNCTIONS (FRIEND):
-   double operator+(Coin var1, Coin var2) {
+   double operator+(const Coin& var1, const Coin& var2) {
       return ((var1.count * var1.ind_value) + (var2.count * var2.ind_value));
    }
 
-   double operator-(Coin var1, Coin var2) {
+   double operator-(const Coin& var1, const Coin& var2) {
       return ((var1.count * var1.ind_value) - (var2.count * var2.ind_value));
    }
 
-   double operator++(Coin var) {
+   double operator++(const Coin& var) {
       return ++var.count;
    }
 
-   double operator--(Coin var) {
+   double operator--(const Coin& var) {
       if (--var.count < 0) {
          std::cout << "ERROR: No " << var.name << "(s) left to withdraw." << std::endl;
          return 0;
@@ -69,7 +69,7 @@ namespace mercury {
       }
    }
 
-   ostream& operator>>(Coin var, ostream& m_out) {
+   ostream& operator>>(ostream& m_out, const Coin& var) {
       m_out << var.name << ": " << var.ind_value;
       return m_out;
    }
