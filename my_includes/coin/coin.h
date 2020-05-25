@@ -11,6 +11,7 @@
 #define COIN_H
 
 #include <string>
+#include <ostream>
 
 namespace mercury {
    class Coin
@@ -37,6 +38,7 @@ namespace mercury {
       friend double operator-(Coin var1, Coin var2);
       friend double operator++(Coin var);
       friend double operator--(Coin var);
+      friend ostream& operator>>(ostream& m_out, Coin var);
    };
 }
 

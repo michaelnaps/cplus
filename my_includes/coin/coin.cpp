@@ -68,4 +68,9 @@ namespace mercury {
          return --var.count;
       }
    }
+
+   ostream& operator>>(Coin var, ostream& m_out) {
+      m_out << var.name << ": " << var.ind_value;
+      return m_out;
+   }
 }
