@@ -69,7 +69,7 @@ namespace mercury {
       }
    }
 
-   ostream& operator>>(ostream& m_out, const Coin& var) {
+   ostream& operator<<(ostream& m_out, const Coin& var) {
       m_out << var.name << ": " << var.ind_value;
       return m_out;
    }
