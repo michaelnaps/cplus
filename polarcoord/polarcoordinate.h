@@ -1,7 +1,7 @@
 // File: polarcoordinate.h
 // Created by: Michael Napoli
 // Created on: 6/21/2020
-// Last modified on:
+// Last modified on: 6/21/2020
 
 /*
    Created for collection and analysis of polar coordinate systems on
@@ -13,7 +13,10 @@
 #ifndef POLARCOORDINATE
 #define POLARCOORDINATE
 
-namespace napoli {
+#include <string>
+
+namespace napoli
+{
    class PolarCoordinate
    {
    private:
@@ -38,6 +41,9 @@ namespace napoli {
       // MEMBER FUNCTIONS:
       double getArc();
       double getRectCoordinate();
+
+      // SAVE FUNCTION:
+      bool saveCoord(const std::string& filename);
    };
 }
 #endif
