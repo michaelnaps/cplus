@@ -39,6 +39,7 @@ namespace napoli
       bool setRadius(const double& dist);
 
       // MEMBER FUNCTIONS:
+      bool switchAngType();
       double getArc();
       double getRectCoordinate();
 
