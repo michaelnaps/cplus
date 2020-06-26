@@ -41,7 +41,7 @@ namespace napoli
       // MEMBER FUNCTIONS:
       bool switchAngType();
       double getArc();
-      double getRectCoordinate();
+      void rectCoordinate(double& x, double& y);
 
       // SAVE FUNCTION:
       bool saveCoord(const std::string& filename);

@@ -14,7 +14,7 @@
 
 namespace napoli
 {
-   // NON-MEMBER FUNCTIONS:
+   // MISC. FUNCTIONS:
    double convertAng(const char& oldAngType, const double& angle) {
       if (oldAngType == 'r') {
          return angle * (180.00 / M_PI);
@@ -24,6 +24,7 @@ namespace napoli
       }
    }
 
+   // POLARCOORDINATE CLASS
    // CONSTRUCTORS:
    PolarCoordinate::PolarCoordinate() : ang_type('d'), theta(0), radius(0) {}
    PolarCoordinate::PolarCoordinate(const char& r_d) : theta(0), radius(0) {
@@ -92,7 +93,24 @@ namespace napoli
          return (radius * theta);
       }
       else if (ang_type = 'd') {
-         return (radius * convertAng(ang_type, theta));
+         return (radius * convertAng('r', theta));
       }
+   }
+
+   void PolarCoordinate::rectCoordinate(double& x, double& y) {
+      if (ang_type == 'r') {
+         x = radius * cos(theta);
+         y = radius * sin(theta);
+      }
+      else if (ang_type == 'd') {
+         x = radius * cos(convertAng('r', theta));
+         y = radius * sin(convertAng('r', theta));
+      }
+
+      return;  // return nothing
+   }
+
+   bool PolarCoordinate::saveCoord(const std::string& filename) {
+      return false;
    }
 }
