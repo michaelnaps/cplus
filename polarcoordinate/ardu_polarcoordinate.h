@@ -13,8 +13,6 @@
 #ifndef POLARCOORDINATE
 #define POLARCOORDINATE
 
-#include <cmath>
-#include <string>
 
 namespace napoli
 {
@@ -37,7 +35,6 @@ namespace napoli
       float radius;
 
    public:
-      // POLARCOORDINATE CLASS
       // CONSTRUCTORS:
       PolarCoordinate() : ang_type('d'), theta(0), radius(0) {}
       PolarCoordinate(const char& r_d) : theta(0), radius(0) {
@@ -123,7 +120,8 @@ namespace napoli
          return;  // return nothing
       }
 
-      bool saveCoord(const std::string& filename) {
+      bool saveCoord(const String& filename) {
+         
          return false;
       }
    };
