@@ -15,7 +15,7 @@ class Feed
 {
 private:
 	string food_type;  // string for the food entered by the function call
-	
+
 	// depending on inputted food, return true if acceptable, otherwise false
 	bool check_food() {
 		if (food_type == "sushi") { return true; }
@@ -34,9 +34,9 @@ public:
 	// function that can be called using class type
 	bool setFoodType(string temp_food) {
 		food_type = temp_food;  // class type string that holds the food variable
-		
+
 		// use inputted food, return true of the food checks to be acceptable
-		if (this->check_food()) { return true; }		
+		if (this->check_food()) { return true; }
 		else { return false; }
 	}
 };
